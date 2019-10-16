@@ -22,12 +22,12 @@ module.exports = function (passport, user) {
     passport.use('local-signup', new LocalStrategy(
         
         {
-            usernameField: 'name',
+            usernameField: 'username',
             passwordField: 'password',
             passReqToCallback: true
         },
         function (req, name, password, done) {
-            console.log(color.green("HERE"));
+            console.log(color.green("$$$$$$$$$$$$$$$$$$$$$"));
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };
@@ -63,7 +63,7 @@ module.exports = function (passport, user) {
     ));
     passport.use('local-login', new LocalStrategy(
         {
-            usernameField: 'name',
+            usernameField: 'username',
             passwordField: 'password',
             passReqToCallback: true 
         },

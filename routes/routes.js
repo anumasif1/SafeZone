@@ -7,14 +7,15 @@ const color = require('colors');
 
 module.exports = (app, passport) => {
 
-    app.post("/api/signup/", (req, res) => {
-        console.log(req.body);
-    })
+    // app.post("/api/signup/", (req, res) => {
+    //     console.log(req.body);
+    // })
 
-    // app.post("/api/signup/", passport.authenticate('local-signup', {
-    //     successRedirect: '/',
-    //     failureRedirect: '/signup/'
-    // }));
+    app.post('/api/signup/', passport.authenticate('local-signup', {
+        successRedirect: '/',
+        failureRedirect: '/signup/'
+    }
+    ));
 
     app.post('/api/login/', passport.authenticate('local-login', {
         successRedirect: '/',
