@@ -8,6 +8,12 @@ function App() {
     <div className="App">
        <nav className="navbar navbar-light bg-danger fixed-top">
         <span className="navbar-brand mb-0 h1">SafeZone</span>
+        <div className=" nav-right float-right">
+          <ul>
+            <li><a href="#sign-up">Sign Up</a></li>
+            <li><a href="#login">Login</a></li>
+          </ul>
+        </div>
       </nav>
 
     <div className="container main-app">
