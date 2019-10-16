@@ -7,7 +7,8 @@ import Axios from 'axios';
 class Signup extends Component {
 
     state = {
-        submitRedirect: ""
+        submitRedirect: "",
+        userName: ""
     }
 
     handleOnClickSubmit = (event) => {
@@ -49,7 +50,7 @@ class Signup extends Component {
                     <Form>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Username" />
+                            <Form.Control type="text" placeholder="Username" name="username" />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -60,7 +61,7 @@ class Signup extends Component {
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" name="password" />
                         </Form.Group>
                         <Form.Group controlId="formBasicAddress">
                             <Form.Label>Address</Form.Label>

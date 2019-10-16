@@ -50,7 +50,7 @@ io.on('connection', function (socket) {
     });
 });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/safezone",
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/safezone3",
     { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 
