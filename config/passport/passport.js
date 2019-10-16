@@ -27,7 +27,6 @@ module.exports = function (passport, user) {
             passReqToCallback: true
         },
         function (req, name, password, done) {
-            console.log(color.green("$$$$$$$$$$$$$$$$$$$$$"));
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };

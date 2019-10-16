@@ -22,6 +22,25 @@ module.exports = (app, passport) => {
         failureRedirect: '/login/'
     }));
 
+    app.get("/api/isloggedin/", isLoggedIn);
+
+    app.get("/api/logout/", logout);
+
+    //check if user logged in
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            res.json(req.user.username)
+            // return next();
+
+        }
+        // res.redirect('/');
+    }
+
+    function logout(req, res) {
+        req.session.destroy(function (err) {
+            res.redirect('/');
+        });
+    }
 
 }
 

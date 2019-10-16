@@ -25,7 +25,8 @@ class Signup extends Component {
                 this.setState({
                     submitRedirect: true
                 })
-                console.log(resp);
+                // console.log("This is Singup", resp);
+                console.log(resp.status)
             })
             .catch(err => {
                 console.log(err);

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Modal, Button, Form } from 'react-bootstrap';
+import Axios from 'axios';
 
-function ComNavbar() {
+
+class ComNavbar extends Component {
 
     // const [signupShow, setSignupShow] = useState(false);
     // const handleSignupClose = () => setSignupShow(false);
@@ -12,6 +14,40 @@ function ComNavbar() {
     // const handleLoginClose = () => setLoginShow(false);
     // const handleLoginShow = () => setLoginShow(true);
 
+    state = {
+        loggedInUser: "",
+        loggedInLogout: "",
+        loggedInSignup: "Signup",
+        loggedInLogin: "Login"
+    }
+
+    componentDidMount() {
+        this.setState({
+            loggedInUser: "",
+            loggedInLogout: "",
+            loggedInSignup: "Signup",
+            loggedInLogin: "Login"
+        })
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                this.setState({
+                    loggedInUser: "Welcome: " + resp.data,
+                    loggedInLogout: "Logout",
+                    loggedInSignup: "",
+                    loggedInLogin: ""
+                })
+                console.log("isloggedin", resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    
+render() {
+
+
     return (
         <>
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
@@ -19,8 +55,10 @@ function ComNavbar() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="" href="/signup/">Signup</Nav.Link>
-                        <Nav.Link href="" href="/login/">Login</Nav.Link>
+                        <Nav.Link href="" href="/signup/">{ this.state.loggedInSignup }</Nav.Link>
+                        <Nav.Link href="" href="/login/">{ this.state.loggedInLogin }</Nav.Link>
+                        <Nav.Link href="" >{ this.state.loggedInUser }</Nav.Link>
+                        <Nav.Link href="" href="/logout/">{ this.state.loggedInLogout }</Nav.Link>
                         {/* <Nav.Link href="" onClick={handleSignupShow}>Signup</Nav.Link>
                         <Nav.Link href="" onClick={handleLoginShow}>Login</Nav.Link> */}
                         {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
@@ -107,6 +145,7 @@ function ComNavbar() {
             </Modal> */}
         </>
     )
+}
 }
 
 export default ComNavbar;

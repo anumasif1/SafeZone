@@ -7,6 +7,7 @@ import SafeZone from './pages/SafeZone';
 import NoMatch from './pages/NoMatch';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/search/" component={Search} /> */}
           <Route exact path="/signup/" component={Signup} />
           <Route exact path="/login/" component={Login} />
+          <Route exact path="/logout/" component={Logout} />
           <Route component={NoMatch} />
         </Switch>
         <Footer />

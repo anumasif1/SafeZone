@@ -8,6 +8,10 @@ const generateHash = function (password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
 };
 
+module.exports.homePage = (req, res) => {
+    console.log(req.user);
+}
+
 // module.exports.addUser = (req, res) => {
 //     console.log(req.body);
 //     passport.authentication('local-signup', {
