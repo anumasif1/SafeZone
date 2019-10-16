@@ -1,0 +1,58 @@
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+} */
+
+
+.navbar{
+  color:white !important; 
+}
+
+.main-app{
+  margin-top: 90px;
+}
+
+nav li:last-child{
+  border: 0px;
+}
+
+nav li{
+  margin-top:12px;
+  color: white;
+  display:inline-block;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  border-right: 0.5px solid #d5d9e0;
+  padding:0px 10px 0px 10px;
+}
+
+.nav-right a{
+  color: white !important;
+}
+
+.navbar-brand{
+  color: white !important;
+  font-size: 60px;
+}
+
+.add-form{
+  /* border: solid black 0.5px; */
+}

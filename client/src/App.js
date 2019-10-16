@@ -1,30 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import AddressForm from './AddressForm';
+import ComNavbar from './components/ComNavbar';
+import Footer from './components/Footer';
+import SafeZone from './pages/SafeZone';
+import NoMatch from './pages/NoMatch';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="App">
-       <nav className="navbar navbar-light bg-danger fixed-top">
-        <span className="navbar-brand mb-0 h1">SafeZone</span>
-        <div className=" nav-right float-right">
-          <ul>
-            <li><a href="#sign-up">Sign Up</a></li>
-            <li><a href="#login">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-
-    <div className="container main-app">
-      <div className="row">
-      <AddressForm />
-     
+    <Router>
+      <div>
+        <ComNavbar />
+        <Switch>
+          <Route exact path="/" component={SafeZone} />
+          {/* <Route exact path="/saved/" component={Saved} />
+          <Route exact path="/search/" component={Search} /> */}
+          <Route exact path="/signup/" component={Signup} />
+          <Route exact path="/login/" component={Login} />
+          <Route component={NoMatch} />
+        </Switch>
+        <Footer />
       </div>
-    </div>
-
-     
-    </div>
+    </Router>
   );
 }
 
