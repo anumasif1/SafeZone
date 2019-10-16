@@ -1,8 +1,10 @@
 import React, { Component, useState } from 'react';
+import { Redirect } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap';
 import { Modal, Button, Form } from 'react-bootstrap';
 import Axios from 'axios';
 
+let spTimeout;
 
 class ComNavbar extends Component {
 
@@ -14,6 +16,8 @@ class ComNavbar extends Component {
     // const handleLoginClose = () => setLoginShow(false);
     // const handleLoginShow = () => setLoginShow(true);
 
+    
+
     state = {
         loggedInUser: "",
         loggedInLogout: "",
@@ -21,13 +25,26 @@ class ComNavbar extends Component {
         loggedInLogin: "Login"
     }
 
+    clearTimeout = (arg) => {
+        clearTimeout(arg);
+    }
+
+    iniTimeout = (sec) => {
+        this.clearTimeout(spTimeout);
+        spTimeout = setTimeout(() => {
+            this.setState({
+                socketLoadStyle: "none"
+            })
+        }, sec * 1000);
+    }
+
     componentDidMount() {
-        this.setState({
-            loggedInUser: "",
-            loggedInLogout: "",
-            loggedInSignup: "Signup",
-            loggedInLogin: "Login"
-        })
+        // this.setState({
+        //     loggedInUser: "",
+        //     loggedInLogout: "",
+        //     loggedInSignup: "Signup",
+        //     loggedInLogin: "Login"
+        // })
         Axios
             .get("/api/isloggedin")
             .then(resp => {
@@ -44,6 +61,24 @@ class ComNavbar extends Component {
             });
     }
 
+    handleOnClickLogout = event => {
+        event.preventDefault();
+        Axios
+            .get("/api/logout/")
+            .then(resp => {
+                this.setState({
+                    loggedInUser: "",
+                    loggedInLogout: "",
+                    loggedInSignup: "Signup",
+                    loggedInLogin: "Login"
+                })
+                console.log("Logged Out!");
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     
 render() {
 
@@ -58,7 +93,7 @@ render() {
                         <Nav.Link href="" href="/signup/">{ this.state.loggedInSignup }</Nav.Link>
                         <Nav.Link href="" href="/login/">{ this.state.loggedInLogin }</Nav.Link>
                         <Nav.Link href="" >{ this.state.loggedInUser }</Nav.Link>
-                        <Nav.Link href="" href="/logout/">{ this.state.loggedInLogout }</Nav.Link>
+                        <Nav.Link href="" href="" onClick={ this.handleOnClickLogout }>{ this.state.loggedInLogout }</Nav.Link>
                         {/* <Nav.Link href="" onClick={handleSignupShow}>Signup</Nav.Link>
                         <Nav.Link href="" onClick={handleLoginShow}>Login</Nav.Link> */}
                         {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">

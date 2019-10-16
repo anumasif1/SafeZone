@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/search/" component={Search} /> */}
           <Route exact path="/signup/" component={Signup} />
           <Route exact path="/login/" component={Login} />
-          <Route exact path="/logout/" component={Logout} />
+          {/* <Route exact path="/logout/" component={Logout} /> */}
           <Route component={NoMatch} />
         </Switch>
         <Footer />

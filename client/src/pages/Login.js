@@ -8,7 +8,7 @@ class Login extends Component {
 
 
     state = {
-        submitRedirect: "",
+        awaitRedirect: "",
         userName: ""
     }
 
@@ -22,7 +22,7 @@ class Login extends Component {
             .post("/api/login/", data)
             .then(resp => {
                 this.setState({
-                    submitRedirect: true
+                    awaitRedirect: true
                 })
                 console.log(resp.status);
                 console.log("This is login", resp);
@@ -39,7 +39,7 @@ class Login extends Component {
     }
 
     render () {
-        if (this.state.submitRedirect) {
+        if (this.state.awaitRedirect) {
             return <Redirect to="/" />
         }
         return (

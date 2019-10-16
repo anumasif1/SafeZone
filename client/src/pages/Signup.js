@@ -7,7 +7,7 @@ import Axios from 'axios';
 class Signup extends Component {
 
     state = {
-        submitRedirect: "",
+        awaitRedirect: "",
         userName: ""
     }
 
@@ -23,7 +23,7 @@ class Signup extends Component {
             .post("/api/signup/", data)
             .then(resp => {
                 this.setState({
-                    submitRedirect: true
+                    awaitRedirect: true
                 })
                 // console.log("This is Singup", resp);
                 console.log(resp.status)
@@ -42,7 +42,7 @@ class Signup extends Component {
     }
 
     render() {
-        if (this.state.submitRedirect) {
+        if (this.state.awaitRedirect) {
             return <Redirect to="/" />
         }
         return (
