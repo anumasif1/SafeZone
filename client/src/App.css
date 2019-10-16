@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -19,4 +19,16 @@
 
 .App-link {
   color: #09d3ac;
+} */
+
+nav {
+  background:#2E5F91 !important;
+}
+
+.navbar{
+  color:white !important; 
+}
+
+.main-app{
+  margin-top: 90px;
 }
