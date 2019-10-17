@@ -12,7 +12,7 @@ class Chat extends Component {
     }
 
     componentDidMount() {
-        let input = document.getElementById("chatInput").value;
+        this.handleSocketIo(["Start Chat Here..."]);
     }
 
     handleSocketIo = arg => {
