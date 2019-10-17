@@ -7,11 +7,16 @@ import Axios from 'axios';
 class Signup extends Component {
 
     state = {
-        userName: ""
+        userName: "",
+        signingUpStyle: "none"
     }
 
     handleOnClickSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            signingUpStyle: "",
+            dateSelected: !this.state.dateSelected
+        })
         let data = {
             username: document.getElementById("formBasicUsername").value,
             email: document.getElementById("formBasicEmail").value,
@@ -28,7 +33,7 @@ class Signup extends Component {
             .catch(err => {
                 console.log(err);
             });
-    } 
+    }
 
     handleOnClickReset = (event) => {
         event.preventDefault();
@@ -39,8 +44,16 @@ class Signup extends Component {
     }
 
     render() {
+        const signingUpStyle = {
+            display: this.state.signingUpStyle,
+            color: "green",
+            fontWeight: "bolder"
+        }
         return (
             <>
+                <div className={`selectMask_box_signup ${this.state.dateSelected ? "maskSignup" : ""} `} style={signingUpStyle}>
+                    <p style={{ marginTop: "100px", fontSize: "38px" }}>Signing up...</p>
+                </div>
                 <Container className="userModal">
                     <Form>
                         <Form.Group controlId="formBasicUsername">
@@ -62,10 +75,10 @@ class Signup extends Component {
                             <Form.Label>Address</Form.Label>
                             <Form.Control type="text" placeholder="Address" />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={ this.handleOnClickSubmit }>
+                        <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
                             Submit
                         </Button>
-                        <Button variant="secondary" style={{ marginLeft: "10px" }} onClick={ this.handleOnClickReset }>
+                        <Button variant="secondary" style={{ marginLeft: "10px" }} onClick={this.handleOnClickReset}>
                             Reset
                         </Button>
                     </Form>

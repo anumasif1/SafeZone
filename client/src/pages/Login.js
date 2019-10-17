@@ -8,11 +8,16 @@ class Login extends Component {
 
 
     state = {
-        userName: ""
+        userName: "",
+        loggingInStyle: "none"
     }
 
     handleOnClickSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            loggingInStyle: "",
+            dateSelected: !this.state.dateSelected
+        })
         let data = {
             username: document.getElementById("formBasicUsername").value,
             password: document.getElementById("formBasicPassword").value
@@ -30,7 +35,7 @@ class Login extends Component {
             .catch(err => {
                 console.log(err);
             });
-    } 
+    }
 
     handleOnClickReset = (event) => {
         event.preventDefault();
@@ -38,10 +43,18 @@ class Login extends Component {
         document.getElementById("formBasicPassword").value = "";
     }
 
-    render () {
+    render() {
+        const loggingInStyle = {
+            display: this.state.loggingInStyle,
+            color: "green",
+            fontWeight: "bolder"
+        }
         return (
             <>
-            <Container className="userModal">
+                <div className={`selectMask_box_login ${this.state.dateSelected ? "maskLogin" : ""} `} style={loggingInStyle}>
+                    <p style={{ marginTop: "100px", fontSize: "38px" }}>Logging in...</p>
+                </div>
+                <Container className="userModal">
                     <Form>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
@@ -52,7 +65,10 @@ class Login extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" name="password" />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit} >
+                        {/* <Form.Group controlId="fromBasicLoggingIn" style={loggingInStyle}>
+                            Logging in...
+                        </Form.Group> */}
+                        <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
                             Submit
                         </Button>
                         <Button variant="secondary" style={{ marginLeft: "10px" }} onClick={this.handleOnClickReset}>
@@ -60,6 +76,7 @@ class Login extends Component {
                         </Button>
                     </Form>
                 </Container>
+
             </>
         )
     }
