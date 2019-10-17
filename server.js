@@ -45,6 +45,10 @@ io.on('connection', function (socket) {
         console.log('server receive :', data);
         io.emit('recvmsg', data)
     })
+    socket.on('sendchat', function (data) {
+        console.log('server receive :', data);
+        io.emit('recvchat', data)
+    })
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });

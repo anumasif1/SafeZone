@@ -101,8 +101,9 @@ class ComNavbar extends Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="" href="/signup/" style={signupStyle}>Signup</Nav.Link>
-                            <Nav.Link href="" href="/login/" style={loginStyle}>Login</Nav.Link>
+                            <Nav.Link href="/chat/">Chat...</Nav.Link>
+                            <Nav.Link href="/signup/" style={signupStyle}>Signup</Nav.Link>
+                            <Nav.Link href="/login/" style={loginStyle}>Login</Nav.Link>
                             <Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link>
                             <Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link>
                         </Nav>
