@@ -7,7 +7,6 @@ import Axios from 'axios';
 class Signup extends Component {
 
     state = {
-        awaitRedirect: "",
         userName: ""
     }
 
@@ -22,10 +21,8 @@ class Signup extends Component {
         Axios
             .post("/api/signup/", data)
             .then(resp => {
-                this.setState({
-                    awaitRedirect: true
-                })
-                // console.log("This is Singup", resp);
+                window.location.replace("/");
+                console.log("This is Singup", resp);
                 console.log(resp.status)
             })
             .catch(err => {
@@ -42,9 +39,6 @@ class Signup extends Component {
     }
 
     render() {
-        if (this.state.awaitRedirect) {
-            return <Redirect to="/" />
-        }
         return (
             <>
                 <Container className="userModal">

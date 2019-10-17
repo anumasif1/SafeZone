@@ -29,11 +29,13 @@ module.exports = (app, passport) => {
     //check if user logged in
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
-            res.json(req.user.username)
+            res.json({message: "y", user: req.user.username})
             // return next();
 
+        } else {
+            // res.redirect('/');
+            res.json({ message: "n" })
         }
-        // res.redirect('/');
     }
 
     function logout(req, res) {

@@ -8,21 +8,12 @@ let spTimeout;
 
 class ComNavbar extends Component {
 
-    // const [signupShow, setSignupShow] = useState(false);
-    // const handleSignupClose = () => setSignupShow(false);
-    // const handleSignupShow = () => setSignupShow(true);
-
-    // const [loginShow, setLoginShow] = useState(false);
-    // const handleLoginClose = () => setLoginShow(false);
-    // const handleLoginShow = () => setLoginShow(true);
-
-    
-
     state = {
         loggedInUser: "",
-        loggedInLogout: "",
-        loggedInSignup: "Signup",
-        loggedInLogin: "Login"
+        logoutStyle: "none",
+        signupStyle: "none",
+        loginStyle: "none",
+        reqUserStyle: "none"
     }
 
     clearTimeout = (arg) => {
@@ -39,21 +30,26 @@ class ComNavbar extends Component {
     }
 
     componentDidMount() {
-        // this.setState({
-        //     loggedInUser: "",
-        //     loggedInLogout: "",
-        //     loggedInSignup: "Signup",
-        //     loggedInLogin: "Login"
-        // })
         Axios
             .get("/api/isloggedin")
             .then(resp => {
-                this.setState({
-                    loggedInUser: "Welcome: " + resp.data,
-                    loggedInLogout: "Logout",
-                    loggedInSignup: "",
-                    loggedInLogin: ""
-                })
+                if (resp.data.message === "n") {
+                    this.setState({
+                        loggedInUser: "",
+                        logoutStyle: "none",
+                        signupStyle: "inline",
+                        loginStyle: "inline",
+                        reqUserStyle: "none"
+                    })
+                } else if (resp.data.message === "y") {
+                    this.setState({
+                        loggedInUser: "Welcome: " + resp.data.user,
+                        logoutStyle: "inline",
+                        signupStyle: "none",
+                        loginStyle: "none",
+                        reqUserStyle: "inline"
+                    })
+                }
                 console.log("isloggedin", resp);
             })
             .catch(err => {
@@ -66,12 +62,14 @@ class ComNavbar extends Component {
         Axios
             .get("/api/logout/")
             .then(resp => {
-                this.setState({
-                    loggedInUser: "",
-                    loggedInLogout: "",
-                    loggedInSignup: "Signup",
-                    loggedInLogin: "Login"
-                })
+                // this.setState({
+                //     loggedInUser: "",
+                //     logoutStyle: "none",
+                //     signupStyle: "inline",
+                //     loginStyle: "inline",
+                //     reqUserStyle: "none"
+                // })
+                window.location.replace("/");
                 console.log("Logged Out!");
             })
             .catch(err => {
@@ -79,108 +77,40 @@ class ComNavbar extends Component {
             })
     }
 
-    
-render() {
+    render() {
 
+        const logoutStyle = {
+            display: this.state.logoutStyle,
+            color: "red"
+        }
+        const reqUserStyle = {
+            display: this.state.reqUserStyle,
+            color: "lightgreen"
+        }
+        const signupStyle = {
+            display: this.state.signupStyle
+        }
+        const loginStyle = {
+            display: this.state.loginStyle
+        }
 
-    return (
-        <>
-            <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-                <Navbar.Brand href="/">Safe Zone</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="" href="/signup/">{ this.state.loggedInSignup }</Nav.Link>
-                        <Nav.Link href="" href="/login/">{ this.state.loggedInLogin }</Nav.Link>
-                        <Nav.Link href="" >{ this.state.loggedInUser }</Nav.Link>
-                        <Nav.Link href="" href="" onClick={ this.handleOnClickLogout }>{ this.state.loggedInLogout }</Nav.Link>
-                        {/* <Nav.Link href="" onClick={handleSignupShow}>Signup</Nav.Link>
-                        <Nav.Link href="" onClick={handleLoginShow}>Login</Nav.Link> */}
-                        {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    </NavDropdown> */}
-                    </Nav>
-                    {/* <Nav>
-                    <Nav.Link href="#deets">More deets</Nav.Link>
-                    <Nav.Link eventKey={2} href="#memes">
-                        Dank memes
-                    </Nav.Link>
-                </Nav> */}
-                </Navbar.Collapse>
-            </Navbar>
-
-            {/* Signup Modal */}
-            {/* <Modal show={signupShow} onHide={handleSignupClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>User Signup</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleSignupClose}>Close</Button>
-                    <Button variant="primary" onClick={handleSignupClose}>Save Changes</Button>
-                </Modal.Footer>
-            </Modal> */}
-
-            {/* Login Modal */}
-            {/* <Modal show={loginShow} onHide={handleLoginClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>User Login</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleLoginClose}>Close</Button>
-                    <Button variant="primary" onClick={handleLoginClose}>Save Changes</Button>
-                </Modal.Footer>
-            </Modal> */}
-        </>
-    )
-}
+        return (
+            <>
+                <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+                    <Navbar.Brand href="/">Safe Zone</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="" href="/signup/" style={signupStyle}>Signup</Nav.Link>
+                            <Nav.Link href="" href="/login/" style={loginStyle}>Login</Nav.Link>
+                            <Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link>
+                            <Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </>
+        )
+    }
 }
 
 export default ComNavbar;

@@ -8,7 +8,6 @@ class Login extends Component {
 
 
     state = {
-        awaitRedirect: "",
         userName: ""
     }
 
@@ -24,6 +23,7 @@ class Login extends Component {
                 this.setState({
                     awaitRedirect: true
                 })
+                window.location.replace("/");
                 console.log(resp.status);
                 console.log("This is login", resp);
             })
@@ -39,9 +39,6 @@ class Login extends Component {
     }
 
     render () {
-        if (this.state.awaitRedirect) {
-            return <Redirect to="/" />
-        }
         return (
             <>
             <Container className="userModal">
