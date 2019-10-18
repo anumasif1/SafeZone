@@ -1,4 +1,18 @@
 .userModal {
     margin-top: 50px;
-    width: 40%;
+    width: 300px;
+}
+
+.maskSignup {
+    background: rgba(0, 0, 0, 0.9) !important;
+    z-index: 10;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+.selectMask_box_signup {
+    background: rgba(0, 0, 0, 0);
+    transition: all .2s linear;
+    text-align: center;
 }

@@ -2,19 +2,33 @@ import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import SocketAlert from './SocketAlert';
 import io from 'socket.io-client';
+import Axios from 'axios';
 
 const socket = io();
-let ioTimeout;
+let ioTimeout; 
 
 class SafeZone extends Component {
 
+    
     state = {
         socketLoadStyle: "none",
         valueSocketIo: "",
-        timeoutStyle: ""
+        timeoutStyle: "",
+        loggedInUser: ""
     }
 
     componentDidMount() {
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                this.setState({
+                    loggedInUser: resp.data.user
+                })
+                console.log("isloggedin", resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
         this.handleSocketIo();
     }
 
