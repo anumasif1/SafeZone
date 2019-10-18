@@ -9,22 +9,36 @@ class Chat extends Component {
 
     state = {
         conversation: [],
+        conversationFull: [],
         chatBoxStyle: "",
         userName: "",
         userId: "",
-        chatToDB: ""
+        chatToDB: "",
+        conversationFullStyle: ""
     }
 
     componentDidMount() {
         Axios
             .get("/api/isloggedin")
             .then(resp => {
+                Axios
+                    .get("/api/getchat/")
+                    .then(resp2 => {
+                        console.log("RESP2: ", resp2.data);
+                        this.setState({
+                            conversationFull: resp2.data
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
                 if (resp.data.message === "n") {
                     let obj = {
                         message: ["Please Login to Start Chat..."]
                     }
                     this.handleSocketIo(obj);
                     this.setState({
+                        conversationFullStyle: "none",
                         chatBoxStyle: "none"
                     })
                 } else if (resp.data.message === "y") {
@@ -58,10 +72,8 @@ class Chat extends Component {
 
     handleOnClickSubmit = event => {
         event.preventDefault();
-        this.setState({
-            chatToDB: document.getElementById("chatInput").value
-        })
-        let input = this.state.userName + ": " + document.getElementById("chatInput").value;
+        let inputValue = document.getElementById("chatInput").value;
+        let input = this.state.userName + ": " + inputValue;
         let spVar = this.state.conversation;
         spVar.push(input);
         let obj = {
@@ -75,7 +87,7 @@ class Chat extends Component {
         let data = {
             id: this.state.userId,
             user: this.state.userName,
-            content: "this.state.chatToDB"
+            content: inputValue
         }
 
         document.getElementById("chatInput").value = "";
@@ -87,12 +99,17 @@ class Chat extends Component {
             })
             .catch(err => {
                 console.log(err);
-            })
+            });
+        // window.location.reload();
     }
 
     render() {
         const chatBoxStyle = {
             display: this.state.chatBoxStyle,
+            width: "500px"
+        }
+        const conversationFullStyle = {
+            display: this.state.conversationFullStyle,
             width: "500px"
         }
         return (
@@ -107,6 +124,12 @@ class Chat extends Component {
                     <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
                         Send
                     </Button>
+                </Container>
+
+                <Container className="" id="conversationFull" style={ conversationFullStyle }>
+                    {this.state.conversationFull.map(item => (
+                        <div key={item.id} className="conversationMap">{item.user}: {item.content}</div>
+                    ))}
                 </Container>
 
                 <Container className="" id="conversation" style={{ width: "500px" }}>

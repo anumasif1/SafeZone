@@ -22,7 +22,10 @@ module.exports = (app, passport) => {
         failureRedirect: '/login/'
     }));
 
-    app.post('/api/savechat', controller.postChat);
+    app.get('/api/getuser/', controller.getUser);
+    app.get('/api/getchat/', controller.getChat);
+
+    app.post('/api/savechat', controller.saveChat);
 
     app.get("/api/isloggedin/", isLoggedIn);
 

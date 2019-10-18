@@ -10,9 +10,9 @@ const generateHash = function (password) {
 
 module.exports.homePage = (req, res) => {
     console.log(req.user);
-}
+};
 
-module.exports.postChat = (req, res) => {
+module.exports.saveChat = (req, res) => {
     let dataPick = _.pick(req.body, ["id", "user", "content"]);
     console.log(dataPick);
     db.Chat
@@ -21,6 +21,33 @@ module.exports.postChat = (req, res) => {
             return db.User.findOneAndUpdate({_id: dataPick.id}, {$push: {content: dbChat._id}}, {new: true});
         })
         .then((dbUser) => {
+            res.json(dbUser);
+        })
+        .catch(err => {
+            res.json(err);
+        })
+};
+
+module.exports.getChat = (req, res) => {
+    db.Chat
+        .find({})
+        .sort([['createdAt', 1]])
+        .then(dbChat => {
+            res.json(dbChat);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+}
+
+module.exports.getUser = (req, res) => {
+    db.User
+        .find({})
+        .populate("content")
+        .then(dbUser => {
+            let obj = {
+                getUser: dbUser
+            }
             res.json(dbUser);
         })
         .catch(err => {
