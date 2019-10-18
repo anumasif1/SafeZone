@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import AddressForm from './AddressForm';
 import SocketAlert from './SocketAlert';
 import io from 'socket.io-client';
 import Axios from 'axios';
@@ -89,6 +90,9 @@ class SafeZone extends Component {
             <Container>
                 <div className="fixed-top" id="socketAlertComponent" style={timeoutStyle}>
                     <SocketAlert style={socketIoNotification} value={this.state.valueSocketIo} />
+                </div>
+                <div>
+                    <AddressForm />
                 </div>
             </Container >
         )
