@@ -22,14 +22,26 @@ module.exports = (app, passport) => {
         failureRedirect: '/login/'
     }));
 
+    app.post('/api/savechat', controller.postChat);
+
     app.get("/api/isloggedin/", isLoggedIn);
 
     app.get("/api/logout/", logout);
 
-    //check if user logged in
+    //check if user logged in for API routes
+    function isLoggedInAPI(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+
+        } else {
+            res.redirect('/');
+            // res.json({ message: "n" })
+        }
+    }
+    //check if user logged in for Navbar status
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
-            res.json({message: "y", user: req.user.username})
+            res.json({ message: "y", user: req.user.username, id: req.user._id })
             // return next();
 
         } else {

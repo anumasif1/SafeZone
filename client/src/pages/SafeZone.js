@@ -22,7 +22,7 @@ class SafeZone extends Component {
             .get("/api/isloggedin")
             .then(resp => {
                 this.setState({
-                    loggedInUser: resp.data
+                    loggedInUser: resp.data.user
                 })
                 console.log("isloggedin", resp);
             })

@@ -12,6 +12,12 @@ module.exports.homePage = (req, res) => {
     console.log(req.user);
 }
 
+module.exports.postChat = (req, res) => {
+    let dataPick = _.pick(req.body, ["id", "user", "content"]);
+    db.Chat
+        .create()
+}
+
 // module.exports.addUser = (req, res) => {
 //     console.log(req.body);
 //     passport.authentication('local-signup', {

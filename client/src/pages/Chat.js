@@ -8,39 +8,80 @@ const socket = io();
 class Chat extends Component {
 
     state = {
-        conversation: []
+        conversation: [],
+        chatBoxStyle: "",
+        userName: "",
+        userId: "",
+        chatToDB: ""
     }
 
     componentDidMount() {
-        this.handleSocketIo(["Start Chat Here..."]);
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                if (resp.data.message === "n") {
+                    let obj = {
+                        message: ["Please Login to Start Chat..."]
+                    }
+                    this.handleSocketIo(obj);
+                    this.setState({
+                        chatBoxStyle: "none"
+                    })
+                } else if (resp.data.message === "y") {
+                    let obj = {
+                        message: ["Start Chat Here..."]
+                    }
+                    this.handleSocketIo(obj);
+                    this.setState({
+                        userId: resp.data.id,
+                        chatBoxStyle: "",
+                        userName: resp.data.user
+                    })
+                }
+                console.log("isloggedin", resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleSocketIo = arg => {
         socket.emit('sendchat', arg);
         socket.on('recvchat', data => {
             this.setState({
-                conversation: data
+                conversation: (" " + data.message).split(",")
             })
-            console.log('client receive :', data);
+            console.log('client receive :', [this.state.userName + this.state.conversation]);
         })
 
     }
 
     handleOnClickSubmit = event => {
         event.preventDefault();
-        let input = document.getElementById("chatInput").value;
+        this.setState({
+            chatToDB: document.getElementById("chatInput").value
+        })
+        let input = this.state.userName + ": " + document.getElementById("chatInput").value;
         let spVar = this.state.conversation;
         spVar.push(input);
-        this.handleSocketIo(spVar);
+        let obj = {
+            message: spVar
+        }
+        // if (this.state.conversation[0] === "Start Chat Here..." || this.state.conversation[0] === "Please Login to Start Chat...") {
+        //     this.state.conversation.splice(0,1);
+        // }
+        this.handleSocketIo(obj);
 
         let data = {
-            content: input
+            id: this.state.userId,
+            user: this.state.userName,
+            content: this.state.chatToDB
         }
 
         document.getElementById("chatInput").value = "";
         
         Axios
-            .post("/api/chat/", data)
+            .post("/api/savechat/", data)
             .then(resp => {
                 console.log(resp)
             })
@@ -50,9 +91,13 @@ class Chat extends Component {
     }
 
     render() {
+        const chatBoxStyle = {
+            display: this.state.chatBoxStyle,
+            width: "500px"
+        }
         return (
             <>
-                <Container style={{ width: "500px" }}>
+                <Container style={ chatBoxStyle }>
                     <Form>
                         <Form.Group>
                             <Form.Label>Chat Input: </Form.Label>
