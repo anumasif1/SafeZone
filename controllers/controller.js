@@ -3,6 +3,8 @@ const _ = require('lodash');
 const bCrypt = require('bcrypt-nodejs');
 const express = require('express');
 const app = express();
+const axios = require('axios');
+const cheerio = require("cheerio");
 
 const generateHash = function (password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
@@ -24,6 +26,26 @@ module.exports.saveChat = (req, res) => {
             res.json(dbUser);
         })
         .catch(err => {
+            res.json(err);
+        })
+};
+
+ module.exports.getNews = (req, res) => {
+    axios.get("https://www.ocregister.com/?s=Irvine+crime&orderby=date&order=desc")
+        .then((response) => {
+            var $ = cheerio.load(response.data);
+            var objArray = [];
+            $("h4").each((i, element) => {
+                var result = {};
+                result.title = $(element).find("a").text();
+                result.link = $(element).find("a").attr("href");
+                if (result.title && result.link) {
+                    objArray.push(result);
+                };
+            });
+            res.json({obj: objArray});
+        })
+        .catch((err) => {
             res.json(err);
         })
 };

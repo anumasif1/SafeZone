@@ -24,6 +24,7 @@ module.exports = (app, passport) => {
 
     app.get('/api/getuser/', controller.getUser);
     app.get('/api/getchat/', controller.getChat);
+    app.get('/api/getnews', controller.getNews);
 
     app.post('/api/savechat', controller.saveChat);
 
