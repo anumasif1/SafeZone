@@ -75,7 +75,7 @@ class Chat extends Component {
         let data = {
             id: this.state.userId,
             user: this.state.userName,
-            content: this.state.chatToDB
+            content: "this.state.chatToDB"
         }
 
         document.getElementById("chatInput").value = "";
@@ -83,7 +83,7 @@ class Chat extends Component {
         Axios
             .post("/api/savechat/", data)
             .then(resp => {
-                console.log(resp)
+                console.log("Chat Added!", resp)
             })
             .catch(err => {
                 console.log(err);

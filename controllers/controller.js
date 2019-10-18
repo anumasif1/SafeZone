@@ -14,8 +14,18 @@ module.exports.homePage = (req, res) => {
 
 module.exports.postChat = (req, res) => {
     let dataPick = _.pick(req.body, ["id", "user", "content"]);
+    console.log(dataPick);
     db.Chat
-        .create()
+        .create(dataPick)
+        .then((dbChat) => {
+            return db.User.findOneAndUpdate({_id: dataPick.id}, {$push: {content: dbChat._id}}, {new: true});
+        })
+        .then((dbUser) => {
+            res.json(dbUser);
+        })
+        .catch(err => {
+            res.json(err);
+        })
 }
 
 // module.exports.addUser = (req, res) => {

@@ -106,6 +106,7 @@ class ComNavbar extends Component {
                             <Nav.Link href="/login/" style={loginStyle}>Login</Nav.Link>
                             <Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link>
                             <Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link>
+                            <Nav.Link href="/news/" style={{}}>News</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
