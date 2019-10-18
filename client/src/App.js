@@ -9,7 +9,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Chat from './pages/Chat';
 import News from './pages/News';
-import Maps from './pages/Maps';
+// import Maps from './pages/Maps';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/login/" component={Login} />
           <Route exact path="/chat/" component={Chat} />
           <Route exact path="/news/" component={News} />
-          <Route exact path="/maps/" component={Maps} />
+          {/* <Route exact path="/maps/" component={Maps} /> */}
           <Route component={NoMatch} />
         </Switch>
         <Footer />
