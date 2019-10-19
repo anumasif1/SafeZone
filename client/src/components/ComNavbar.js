@@ -101,7 +101,7 @@ class ComNavbar extends Component {
                     <Navbar.Brand href="/">Safe Zone</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav"> */}
-                        <Nav className="navbar navbar-light bg-red fixed-top p-0">
+                        <Nav className="navbar navbar-light bg-success fixed-top p-0">
                         <span className="navbar-brand mb-0 h1"><a href="/">SafeZone</a></span>
                             <ul>
                                 <li><Nav.Link href="/chat/">Chat</Nav.Link></li>

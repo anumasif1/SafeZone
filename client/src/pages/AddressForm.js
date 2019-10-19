@@ -165,6 +165,7 @@ class AddressForm extends Component {
     let result = this.alert();
     return (
         <div className="container-main">
+          <div className="card bg-light">
           <AddressSuggest
             query={this.state.query}
             onChange={this.onQuery}
@@ -179,8 +180,12 @@ class AddressForm extends Component {
             />
           <br/>
           { result }
-          <button type="submit" className="btn btn-primary" onClick={this.onCheck}>Check</button>
-          <button type="submit" className="btn btn-outline-secondary ml-10" onClick={this.onClear}>Clear</button>
+          <div className="form-button">
+          <button type="submit" className="btn btn-light ml-10" onClick={this.onClear}>Clear</button>
+          <button type="submit" className="btn btn-light" onClick={this.onCheck}>Check</button>
+         
+          </div>
+        </div>
         </div>
       );
   }
