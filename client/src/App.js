@@ -14,7 +14,7 @@ import News from './pages/News';
 function App() {
   return (
     <Router>
-      <div>
+      <div className='App'>
         <ComNavbar />
         <Switch>
           <Route exact path="/" component={SafeZone} />

@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap';
 import { Modal, Button, Form } from 'react-bootstrap';
 import Axios from 'axios';
+import './ComNavbar.css';
 
 let spTimeout;
 
@@ -96,21 +97,25 @@ class ComNavbar extends Component {
 
         return (
             <>
-                <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+                {/* <Navbar collapseOnSelect expand="sm" bg="danger" variant="danger">
                     <Navbar.Brand href="/">Safe Zone</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto">
-                            <Nav.Link href="/chat/">Chat...</Nav.Link>
-                            <Nav.Link href="/signup/" style={signupStyle}>Signup</Nav.Link>
-                            <Nav.Link href="/login/" style={loginStyle}>Login</Nav.Link>
-                            <Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link>
-                            <Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link>
-                            <Nav.Link href="/news/" style={{}}>News</Nav.Link>
+                    <Navbar.Collapse id="responsive-navbar-nav"> */}
+                        <Nav className="navbar navbar-light bg-red fixed-top p-0">
+                        <span className="navbar-brand mb-0 h1"><a href="/">SafeZone</a></span>
+                            <ul>
+                                <li><Nav.Link href="/chat/">Chat</Nav.Link></li>
+                                <li><Nav.Link href="/signup/" style={signupStyle}>Signup</Nav.Link></li>
+                                <li><Nav.Link href="/login/" style={loginStyle}>Login</Nav.Link></li>
+                                <li><Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link></li>
+                                <li><Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link></li>
+                                <li><Nav.Link href="/news/" style={{}}>News</Nav.Link></li>                         
+                           
                             {/* <Nav.Link href="/maps/" style={{}}>Maps</Nav.Link> */}
+                            </ul>
                         </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
+                    {/* </Navbar.Collapse>
+                </Navbar> */}
             </>
         )
     }
