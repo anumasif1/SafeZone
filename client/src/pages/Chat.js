@@ -14,7 +14,10 @@ class Chat extends Component {
         userName: "",
         userId: "",
         chatToDB: "",
-        conversationFullStyle: ""
+        conversationFullStyle: "",
+        loginRequireStyle: "none",
+
+        onChangeTest: ""
     }
 
     componentDidMount() {
@@ -33,30 +36,34 @@ class Chat extends Component {
                         console.log(err);
                     });
                 if (resp.data.message === "n") {
-                    let obj = {
-                        message: ["Please Login to Start Chat..."]
-                    }
-                    this.handleSocketIo(obj);
                     this.setState({
-                        conversationFullStyle: "none",
-                        chatBoxStyle: "none"
+                        loginRequireStyle: "",
+                        conversationFullStyle: "none"
                     })
                 } else if (resp.data.message === "y") {
                     let obj = {
                         message: ["Start Chat Here..."]
-                    }
+                    };
                     this.handleSocketIo(obj);
                     this.setState({
                         userId: resp.data.id,
                         chatBoxStyle: "",
                         userName: resp.data.user
-                    })
+                    });
                 }
                 console.log("isloggedin", resp);
             })
             .catch(err => {
                 console.log(err);
             });
+
+
+        socket.on('recvtype', data => {
+            this.setState({
+                onChangeTest: data + " is typing..."
+            });
+            console.log(data)
+        })
     }
 
     handleSocketIo = arg => {
@@ -91,7 +98,7 @@ class Chat extends Component {
         }
 
         document.getElementById("chatInput").value = "";
-        
+
         Axios
             .post("/api/savechat/", data)
             .then(resp => {
@@ -103,6 +110,25 @@ class Chat extends Component {
         // window.location.reload();
     }
 
+    handleOnChange = () => {
+        socket.emit('sendtype', this.state.userName);
+        socket.on('recvtype', data => {
+            this.setState({
+                onChangeTest: data + " is typing..."
+            });
+            console.log(data)
+        })
+    }
+
+    handleOnKeyUp = () => {
+        socket.emit('sendtype', this.state.userName);
+        socket.on('recvtype', data => {
+            this.setState({
+                onChangeTest: ""
+            });
+        })
+    }
+
     render() {
         const chatBoxStyle = {
             display: this.state.chatBoxStyle,
@@ -112,29 +138,42 @@ class Chat extends Component {
             display: this.state.conversationFullStyle,
             width: "500px"
         }
+        const loginRequireStyle = {
+            display: this.state.loginRequireStyle,
+            width: "500px",
+            color: "blue",
+            marginTop: "60px"
+        }
         return (
             <>
-                <Container style={ chatBoxStyle }>
+                <Container style={chatBoxStyle}>
                     <Form>
                         <Form.Group>
                             <Form.Label>Chat Input: </Form.Label>
-                            <Form.Control as="input" rows="3" id="chatInput" placeholder="Input here..." />
+                            {this.state.onChangeTest}
+                            <Form.Control as="input" rows="3" id="chatInput" placeholder="Input here..." onChange={this.handleOnChange} onKeyUp={this.handleOnKeyUp} />
                         </Form.Group>
+                        <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
+                            Send
+                        </Button>
                     </Form>
-                    <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
-                        Send
-                    </Button>
                 </Container>
 
-                <Container className="" id="conversationFull" style={ conversationFullStyle }>
-                    {this.state.conversationFull.map(item => (
-                        <div key={item.id} className="conversationMap">{item.user}: {item.content}</div>
+                <Container style={loginRequireStyle} >
+                    Please login to start chat...
+                </Container>
+
+                <Container className="" id="conversation" style={conversationFullStyle}>
+                    {this.state.conversation.map(item => (
+                        <div key={item.id} className="conversationMap">{item}</div>
                     ))}
                 </Container>
 
-                <Container className="" id="conversation" style={{ width: "500px" }}>
-                    {this.state.conversation.map(item => (
-                        <div key={item.id} className="conversationMap">{item}</div>
+                <Container className="" id="conversationFull" style={conversationFullStyle}>
+                    {/* Previous chat history: */}
+                    <hr></hr>
+                    {this.state.conversationFull.map(item => (
+                        <div key={item.id} className="conversationMap">{item.user}: {item.content}</div>
                     ))}
                 </Container>
             </>
