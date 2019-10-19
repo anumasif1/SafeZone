@@ -59,7 +59,8 @@ class Chat extends Component {
                 console.log(err);
             });
         this.handleOnChange();
-        this.handleOnKeyDown();
+        this.handleOnKeyDown();  
+        console.log("HE")
     }
 
     clearFadeoutTime = (arg) => {
