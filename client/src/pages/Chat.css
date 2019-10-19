@@ -1,11 +1,22 @@
 #conversation {
     margin-top: 60px;
-    color: green;
+    color: blue;
+    /* margin-bottom: 60px; */
+    max-height: 200px;
+    overflow: scroll;
+    /* background-color: wheat; */
+    padding: 20px;
 }
 
 #conversationFull {
-    margin-top: 60px;
-    color: green;
+    /* margin-top: 60px; */
+    color: blue;
+    margin-bottom: 100px;
+    max-height: 200px;
+    overflow: scroll;
+    /* background-color: wheat; */
+    padding: 20px;
+    /* border: 1px solid #ccc; */
 }
 
 .conversationMap {
