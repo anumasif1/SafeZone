@@ -4,18 +4,20 @@ import Axios from 'axios';
 import './Chat.css';
 import io from 'socket.io-client';
 const socket = io();
+let ioTimeout;
 
 class Chat extends Component {
 
     state = {
         conversation: [],
         conversationFull: [],
-        chatBoxStyle: "",
+        chatBoxStyle: "none",
         userName: "",
         userId: "",
         chatToDB: "",
         conversationFullStyle: "",
         loginRequireStyle: "none",
+        loadTypingStyle: "none",
 
         onChangeTest: ""
     }
@@ -56,14 +58,22 @@ class Chat extends Component {
             .catch(err => {
                 console.log(err);
             });
+        this.handleOnChange();
+        this.handleOnKeyDown();
+    }
 
+    clearFadeoutTime = (arg) => {
+        clearTimeout(arg);
+    }
 
-        socket.on('recvtype', data => {
+    fadeoutSocketIoTyping = (time) => {
+        this.clearFadeoutTime(ioTimeout);
+        ioTimeout = setTimeout(() => {
             this.setState({
-                onChangeTest: data + " is typing..."
-            });
-            console.log(data)
-        })
+                socketLoadStyle: "none",
+                loadTypingStyle: "none"
+            })
+        }, time * 1000);
     }
 
     handleSocketIo = arg => {
@@ -76,6 +86,24 @@ class Chat extends Component {
         })
 
     }
+
+    // handleSocketIoKeyDown = () => {
+    //     socket.on('recvtype', data => {
+    //         this.setState({
+    //             onChangeTest: data + " is typing..."
+    //         });
+    //         console.log(data)
+    //     })
+    // }
+
+    // handleSocketIoKeyUp = () => {
+    //     socket.on('recvtype', data => {
+    //         this.setState({
+    //             onChangeTest: ""
+    //         });
+    //         console.log(data)
+    //     })
+    // }
 
     handleOnClickSubmit = event => {
         event.preventDefault();
@@ -116,16 +144,23 @@ class Chat extends Component {
             this.setState({
                 onChangeTest: data + " is typing..."
             });
+            this.fadeoutSocketIoTyping(2);
             console.log(data)
         })
     }
 
     handleOnKeyUp = () => {
         socket.emit('sendtype', this.state.userName);
-        socket.on('recvtype', data => {
+        this.handleSocketIoKeyUp();
+    }
+
+    handleOnKeyDown = () => {
+        socket.emit('sendinitype', this.state.userName);
+        socket.on('recvinitype', data => {
             this.setState({
-                onChangeTest: ""
+                loadTypingStyle: ""
             });
+            console.log(data)
         })
     }
 
@@ -144,14 +179,21 @@ class Chat extends Component {
             color: "blue",
             marginTop: "60px"
         }
+        const loadTypingStyle = {
+            display: this.state.loadTypingStyle,
+            color: "grey"
+        }
+
         return (
             <>
                 <Container style={chatBoxStyle}>
                     <Form>
                         <Form.Group>
                             <Form.Label>Chat Input: </Form.Label>
-                            {this.state.onChangeTest}
-                            <Form.Control as="input" rows="3" id="chatInput" placeholder="Input here..." onChange={this.handleOnChange} onKeyUp={this.handleOnKeyUp} />
+                            <div style={loadTypingStyle}>
+                                {this.state.onChangeTest}
+                            </div>
+                            <Form.Control as="input" rows="3" id="chatInput" placeholder="Input here..." onChange={this.handleOnChange} onKeyDown={this.handleOnKeyDown} />
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
                             Send

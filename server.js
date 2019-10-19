@@ -49,6 +49,14 @@ io.on('connection', function (socket) {
         console.log('server receive :', data);
         io.emit('recvchat', data)
     })
+    socket.on('sendtype', function (data) {
+        console.log('server receive :', data);
+        io.emit('recvtype', data)
+    })
+    socket.on('sendinitype', function (data) {
+        console.log('server receive :', data);
+        io.emit('recvinitype', data)
+    })
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
