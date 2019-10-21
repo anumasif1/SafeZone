@@ -1,0 +1,12 @@
+#newsSec {
+    margin-top: 100px;
+    width: 300px;
+}
+
+.newSecMapTitle {
+    font-weight: bolder;
+}
+
+.newSecMapLink {
+    color: black;
+}

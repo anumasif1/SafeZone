@@ -10,7 +10,8 @@ class Signup extends Component {
         userName: "",
         signingUpStyle: "none",
         errorMessage: "",
-        errorMessageStyle: ""
+        errorMessageStyle: "",
+        isLoggedIn: ""
     }
 
     handleOnClickSubmit = (event) => {

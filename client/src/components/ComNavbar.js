@@ -49,7 +49,7 @@ class ComNavbar extends Component {
                         signupStyle: "none",
                         loginStyle: "none",
                         reqUserStyle: "inline"
-                    })
+                    });
                 }
                 console.log("isloggedin", resp);
             })

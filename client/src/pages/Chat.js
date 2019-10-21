@@ -177,8 +177,10 @@ class Chat extends Component {
         const loginRequireStyle = {
             display: this.state.loginRequireStyle,
             width: "500px",
-            color: "blue",
-            marginTop: "100px"
+            color: "black",
+            fontWeight: "bold",
+            marginTop: "100px",
+            textAlign: "center"
         }
         const loadTypingStyle = {
             display: this.state.loadTypingStyle,
