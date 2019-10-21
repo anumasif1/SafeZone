@@ -4,6 +4,7 @@ import AddressForm from './AddressForm';
 import SocketAlert from './SocketAlert';
 import io from 'socket.io-client';
 import Axios from 'axios';
+import './SafeZone.css';
 
 const socket = io();
 let ioTimeout; 

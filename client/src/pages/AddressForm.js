@@ -3,6 +3,7 @@ import AddressSuggest from './AddressSuggest';
 import AddressInput from './AddressInput';
 import axios from 'axios';
 import './AddressForm.css';
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
 const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
@@ -165,7 +166,11 @@ class AddressForm extends Component {
     let result = this.alert();
     return (
         <div className="container-main">
-          <div className="card bg-light">
+          <div>
+          <h1>Sign Up, Check the Address and Stay Safe!</h1>
+          </div>
+          <Jumbotron fluid>
+             <div className="card bg-light">
           <AddressSuggest
             query={this.state.query}
             onChange={this.onQuery}
@@ -186,7 +191,9 @@ class AddressForm extends Component {
          
           </div>
         </div>
+</Jumbotron>
         </div>
+
       );
   }
 }

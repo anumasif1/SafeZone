@@ -14,7 +14,7 @@ import News from './pages/News';
 function App() {
   return (
     <Router>
-      <div className='App'>
+      {/* <div className='App'> */}
         <ComNavbar />
         <Switch>
           <Route exact path="/" component={SafeZone} />
@@ -26,7 +26,7 @@ function App() {
           <Route component={NoMatch} />
         </Switch>
         <Footer />
-      </div>
+      {/* </div> */}
     </Router>
   );
 }
