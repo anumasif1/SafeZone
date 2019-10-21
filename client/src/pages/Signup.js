@@ -14,6 +14,26 @@ class Signup extends Component {
         isLoggedIn: ""
     }
 
+    componentDidMount() {
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                if (resp.data.message === "n") {
+                    this.setState({
+                        isLoggedIn: false
+                    })
+                } else if (resp.data.message === "y") {
+                    this.setState({
+                        isLoggedIn: true
+                    });
+                    window.location.replace("/");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
     handleOnClickSubmit = (event) => {
         event.preventDefault();
         this.setState({
@@ -42,7 +62,7 @@ class Signup extends Component {
                                 errorMessageStyle: ""
                             })
                             // window.location.replace("/login/");
-                            console.log("$$$$$$$$$", respFail.data.message);
+                            console.log("Signup fail message: ", respFail.data.message);
                         } else {
                             this.setState({
                                 signingUpStyle: ""
