@@ -34,24 +34,26 @@ class AddressForm extends Component {
 
     const self = this;
     axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
-      {'params': {
-        'app_id': 'BsV54tyJtu3XyQzqHSbS',
-        'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
-        'query': query,
-        'maxresults': 1,
-      }}).then(function (response) {
-          if (response.data.suggestions.length > 0) {
-            const id = response.data.suggestions[0].locationId;
-            const address = response.data.suggestions[0].address;
-            self.setState({
-              'address' : address,
-              'query' : query,
-              'locationId': id
-            })
-          } else {
-            const state = self.getInitialState();
-            self.setState(state);
-          }
+      {
+        'params': {
+          'app_id': 'BsV54tyJtu3XyQzqHSbS',
+          'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
+          'query': query,
+          'maxresults': 1,
+        }
+      }).then(function (response) {
+        if (response.data.suggestions.length > 0) {
+          const id = response.data.suggestions[0].locationId;
+          const address = response.data.suggestions[0].address;
+          self.setState({
+            'address': address,
+            'query': query,
+            'locationId': id
+          })
+        } else {
+          const state = self.getInitialState();
+          self.setState(state);
+        }
       });
   }
 
@@ -87,8 +89,8 @@ class AddressForm extends Component {
 
   onCheck(evt) {
     let params = {
-        'app_id': 'BsV54tyJtu3XyQzqHSbS',
-        'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
+      'app_id': 'BsV54tyJtu3XyQzqHSbS',
+      'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
     }
 
     if (this.state.locationId.length > 0) {
@@ -103,36 +105,36 @@ class AddressForm extends Component {
 
     const self = this;
     axios.get('https://geocoder.api.here.com/6.2/geocode.json',
-      {'params': params }
-      ).then(function (response) {
-        const view = response.data.Response.View
-        if (view.length > 0 && view[0].Result.length > 0) {
-          const location = view[0].Result[0].Location;
+      { 'params': params }
+    ).then(function (response) {
+      const view = response.data.Response.View
+      if (view.length > 0 && view[0].Result.length > 0) {
+        const location = view[0].Result[0].Location;
 
-          self.setState({
-            'isChecked': 'true',
-            'locationId': '',
-            'query': location.Address.Label,
-            'address': {
-              'street': location.Address.HouseNumber + ' ' + location.Address.Street,
-              'city': location.Address.City,
-              'state': location.Address.State,
-              'postalCode': location.Address.PostalCode,
-              'country': location.Address.Country
-            },
-            'coords': {
-              'lat': location.DisplayPosition.Latitude,
-              'lon': location.DisplayPosition.Longitude
-            }
-          });
-        } else {
-          self.setState({
-            isChecked: true,
-            coords: null,
-          })
-        }
+        self.setState({
+          'isChecked': 'true',
+          'locationId': '',
+          'query': location.Address.Label,
+          'address': {
+            'street': location.Address.HouseNumber + ' ' + location.Address.Street,
+            'city': location.Address.City,
+            'state': location.Address.State,
+            'postalCode': location.Address.PostalCode,
+            'country': location.Address.Country
+          },
+          'coords': {
+            'lat': location.DisplayPosition.Latitude,
+            'lon': location.DisplayPosition.Longitude
+          }
+        });
+      } else {
+        self.setState({
+          isChecked: true,
+          coords: null,
+        })
+      }
 
-      })
+    })
       .catch(function (error) {
         console.log('caught failed query');
         self.setState({
@@ -165,36 +167,36 @@ class AddressForm extends Component {
   render() {
     let result = this.alert();
     return (
-        <div className="container-main">
-          <div>
+      <div className="container-main">
+        <div>
           <h1>Sign Up, Check the Address and Stay Safe!</h1>
-          </div>
-          <Jumbotron fluid>
-             <div className="card">
-          <AddressSuggest
-            query={this.state.query}
-            onChange={this.onQuery}
-            />
-          <AddressInput
-            street={this.state.address.street}
-            city={this.state.address.city}
-            state={this.state.address.state}
-            postalCode={this.state.address.postalCode}
-            country={this.state.address.country}
-            onChange={this.onAddressChange}
-            />
-          
-          { result }
-          <div className="form-button">
-          <button type="submit" className="btn btn-light ml-10" onClick={this.onClear}>Clear</button>
-          <button type="submit" className="btn btn-light" onClick={this.onCheck}>Check</button>
-         
-          </div>
         </div>
-</Jumbotron>
-        </div>
+        <Jumbotron fluid>
+          <div className="card">
+            <AddressSuggest
+              query={this.state.query}
+              onChange={this.onQuery}
+            />
+            <AddressInput
+              street={this.state.address.street}
+              city={this.state.address.city}
+              state={this.state.address.state}
+              postalCode={this.state.address.postalCode}
+              country={this.state.address.country}
+              onChange={this.onAddressChange}
+            />
 
-      );
+            {result}
+            <div className="form-button" style={{ padding: "10px" }}>
+              <button type="submit" className="btn btn-light ml-10" onClick={this.onClear}>Clear</button>
+              <button type="submit" className="btn btn-light" onClick={this.onCheck}>Check</button>
+
+            </div>
+          </div>
+        </Jumbotron>
+      </div>
+
+    );
   }
 }
 
