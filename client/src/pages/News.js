@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { Container } from 'react-bootstrap';
+import './News.css';
 
 class News extends Component {
     state = {
@@ -28,10 +29,15 @@ class News extends Component {
     render() {
         return (
             <>
-                <Container className="" id="conversation" style={{ width: "500px" }}>
-                    {this.state.news.map(item => (
-                        <div key={item.id} className="conversationMap">
-                            {item.title}<br />{item.link}
+                <Container id="newsSec">
+                    {this.state.news.map((item, index) => (
+                        <div key={item.id}>
+                            <div className="newSecMapTitle">
+                                {index + 1}. <a className="newSecMapLink" href={item.link}>{item.title}</a>
+                            </div>
+                            {/* <div>
+                                <a className="newSecMapLink" href={item.link}>{item.link}</a>
+                            </div> */}
                             <hr></hr>
                         </div>
                     ))}
