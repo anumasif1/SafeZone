@@ -11,10 +11,32 @@ class Login extends Component {
         userName: "",
         loggingInStyle: "none",
         errorMessate: "",
-        errorMessageStyle: "none"
+        errorMessageStyle: "none",
+        isLoggedIn: ""
+    }
+
+    componentDidMount() {
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                if (resp.data.message === "n") {
+                    this.setState({
+                        isLoggedIn: false
+                    })
+                } else if (resp.data.message === "y") {
+                    this.setState({
+                        isLoggedIn: true
+                    });
+                    window.location.replace("/");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleOnClickSubmit = (event) => {
+        console.log("React State isLoggedIn: " + this.state.isLoggedIn)
         event.preventDefault();
         this.setState({
             dateSelected: !this.state.dateSelected
@@ -32,14 +54,14 @@ class Login extends Component {
                         if (respFail.data.message.length !== 0) {
                             this.setState({
                                 errorMessage: respFail.data.message,
-                                errorMessageStyle: ""
+                                errorMessageStyle: "",
+                                isLoggedIn: false
                             })
-                            // window.location.replace("/login/");
-                            console.log("$$$$$$$$$", respFail.data.message);
                         } else {
                             this.setState({
                                 loggingInStyle: "",
-                                awaitRedirect: true
+                                awaitRedirect: true,
+                                isLoggedIn: true
                             })
                             window.location.replace("/");
                             console.log(resp.status);
