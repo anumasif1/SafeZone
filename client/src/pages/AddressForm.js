@@ -170,7 +170,7 @@ class AddressForm extends Component {
           <h1>Sign Up, Check the Address and Stay Safe!</h1>
           </div>
           <Jumbotron fluid>
-             <div className="card bg-light">
+             <div className="card">
           <AddressSuggest
             query={this.state.query}
             onChange={this.onQuery}
@@ -183,7 +183,7 @@ class AddressForm extends Component {
             country={this.state.address.country}
             onChange={this.onAddressChange}
             />
-          <br/>
+          
           { result }
           <div className="form-button">
           <button type="submit" className="btn btn-light ml-10" onClick={this.onClear}>Clear</button>

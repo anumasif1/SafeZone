@@ -12,7 +12,7 @@ class Login extends Component {
         loggingInStyle: "none",
         errorMessate: "",
         errorMessageStyle: "none",
-        isLoggedIn: ""
+        isLoggedIn: true
     }
 
     componentDidMount() {
@@ -101,35 +101,42 @@ class Login extends Component {
         }
         return (
             <>
-                <div className={`selectMask_box_login ${this.state.dateSelected ? "maskLogin" : ""} `} style={loggingInStyle}>
-                    <p style={{ marginTop: "100px", fontSize: "38px" }}>Logging in...</p>
-                </div>
-                <Container className="userModal">
-                    <Form>
-                        <Form.Group style={errorMessageStyle}>
-                            {this.state.errorMessage}
-                        </Form.Group>
-                        <Form.Group controlId="formBasicUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter user name" name="username" />
-                        </Form.Group>
+                {/* {this.state.isLoggedIn ? (
+                    <>
+                    </>
+                ) : (
+                    <> */}
+                        <div className={`selectMask_box_login ${this.state.dateSelected ? "maskLogin" : ""} `} style={loggingInStyle}>
+                            <p style={{ marginTop: "100px", fontSize: "38px" }}>Logging in...</p>
+                        </div>
+                        <Container className="userModal">
+                            <Form>
+                                <Form.Group style={errorMessageStyle}>
+                                    {this.state.errorMessage}
+                                </Form.Group>
+                                <Form.Group controlId="formBasicUsername">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter user name" name="username" />
+                                </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name="password" />
-                        </Form.Group>
-                        {/* <Form.Group controlId="fromBasicLoggingIn" style={loggingInStyle}>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" name="password" />
+                                </Form.Group>
+                                {/* <Form.Group controlId="fromBasicLoggingIn" style={loggingInStyle}>
                             Logging in...
                         </Form.Group> */}
-                        <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
-                            Submit
+                                <Button variant="primary" type="submit" onClick={this.handleOnClickSubmit}>
+                                    Submit
                         </Button>
-                        <Button variant="secondary" style={{ marginLeft: "10px" }} onClick={this.handleOnClickReset}>
-                            Reset
+                                <Button variant="secondary" style={{ marginLeft: "10px" }} onClick={this.handleOnClickReset}>
+                                    Reset
                         </Button>
-                    </Form>
-                </Container>
-
+                            </Form>
+                        </Container>
+                    {/* </>
+                )
+            } */}
             </>
         )
     }

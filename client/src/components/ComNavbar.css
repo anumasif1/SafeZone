@@ -1,11 +1,16 @@
-.nav-content{
+.nav-content {
     list-style: none;
     text-align: justify;
     text-decoration: none;
     padding: 0%;
 }
 
-ul{
+#topTitle:hover {
+    color: white;
+    text-decoration: none;
+}
+
+ul {
     list-style-type: none;
     color: white;
     margin: 0px 20px 0px 0px;
@@ -14,25 +19,26 @@ ul{
     white-space:nowrap; */
 }
 
-li{
+li {
     display: inline;
 }
 
-a.nav-link{
+a.nav-link {
     padding: 10px;
     display: inline;
     color: white;
 }
 
-.navbar-light .navbar-brand{
-    padding: 20px;;
+.navbar-light .navbar-brand {
+    padding: 20px;
+    ;
 }
 
-.nav{
+.nav {
     background-color: rgb(231, 61, 61);
 }
 
-a{
+a {
     color: white;
     text-decoration: none;
 }
