@@ -59,8 +59,7 @@ class Chat extends Component {
                 console.log(err);
             });
         this.handleOnChange();
-        this.handleOnKeyDown();  
-        console.log("HE")
+        this.handleOnKeyDown();
     }
 
     clearFadeoutTime = (arg) => {
@@ -168,7 +167,8 @@ class Chat extends Component {
     render() {
         const chatBoxStyle = {
             display: this.state.chatBoxStyle,
-            width: "500px"
+            width: "500px",
+            marginTop: "100px"
         }
         const conversationFullStyle = {
             display: this.state.conversationFullStyle,
@@ -178,7 +178,7 @@ class Chat extends Component {
             display: this.state.loginRequireStyle,
             width: "500px",
             color: "blue",
-            marginTop: "60px"
+            marginTop: "100px"
         }
         const loadTypingStyle = {
             display: this.state.loadTypingStyle,

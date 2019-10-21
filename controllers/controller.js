@@ -77,6 +77,10 @@ module.exports.getUser = (req, res) => {
         })
 }
 
+module.exports.handleFail = (req, res) => {
+    res.json({ message: req.flash('error') })
+}
+
 // module.exports.addUser = (req, res) => {
 //     console.log(req.body);
 //     passport.authentication('local-signup', {

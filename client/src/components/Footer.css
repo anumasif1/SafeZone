@@ -1,9 +1,10 @@
 .footer {
     bottom: 0;
     width: 100%;
-    height: 35px;
-    line-height: 230%;
+    height: 25px;
+    line-height: 200%;
     background-color: #343a40;
     color: white;
     text-align: center;
+    font-size: 12px;
 }

@@ -34,8 +34,7 @@ module.exports = function (passport, user) {
             User.findOne({username: name}).then(function (user) {
 
                 if (user) {
-                    console.log(color.red('User name has been taken! Please try a different one!'))
-                    return done(null, false, req.flash('error','Email has been taken! Please try a different one!'));
+                    return done(null, false, req.flash('error','User name has been taken! Please try a different one!'));
                 }
                 else {
                     var userPassword = generateHash(password);
@@ -73,7 +72,7 @@ module.exports = function (passport, user) {
             }
             User.findOne({username: name}).then(function (user) {
                 if (!user) {
-                    return done(null, false, req.flash('error','Email does not exist! Please try again!'));
+                    return done(null, false, req.flash('error','User name does not exist! Please try again!'));
                 }
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, req.flash('error','Wrong password! Please try again!'));

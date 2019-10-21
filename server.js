@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(flash());
 
-app.use(session({ secret: "mac master", cookie: { maxAge: 30 * 60 * 1000 }, resave: true, saveUninitialized: true }));
+app.use(session({ secret: "mac master", cookie: { maxAge: 300 * 60 * 1000 }, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 

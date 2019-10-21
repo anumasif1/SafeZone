@@ -8,13 +8,14 @@ class Signup extends Component {
 
     state = {
         userName: "",
-        signingUpStyle: "none"
+        signingUpStyle: "none",
+        errorMessage: "",
+        errorMessageStyle: ""
     }
 
     handleOnClickSubmit = (event) => {
         event.preventDefault();
         this.setState({
-            signingUpStyle: "",
             dateSelected: !this.state.dateSelected
         })
         let data = {
@@ -23,12 +24,33 @@ class Signup extends Component {
             password: document.getElementById("formBasicPassword").value,
             address: document.getElementById("formBasicAddress").value
         };
+
+
+
+
         Axios
             .post("/api/signup/", data)
             .then(resp => {
-                window.location.replace("/");
-                console.log("This is Singup", resp);
-                console.log(resp.status)
+
+                Axios
+                    .get("/api/fail/")
+                    .then(respFail => {
+                        if (respFail.data.message.length !== 0) {
+                            this.setState({
+                                errorMessage: respFail.data.message,
+                                errorMessageStyle: ""
+                            })
+                            // window.location.replace("/login/");
+                            console.log("$$$$$$$$$", respFail.data.message);
+                        } else {
+                            this.setState({
+                                signingUpStyle: ""
+                            })
+                            window.location.replace("/");
+                            console.log("This is Singup", resp);
+                            console.log(resp.status)
+                        }
+                    })
             })
             .catch(err => {
                 console.log(err);
@@ -49,6 +71,10 @@ class Signup extends Component {
             color: "green",
             fontWeight: "bolder"
         }
+        const errorMessageStyle = {
+            display: this.state.errorMessageStyle,
+            color: "red"
+        }
         return (
             <>
                 <div className={`selectMask_box_signup ${this.state.dateSelected ? "maskSignup" : ""} `} style={signingUpStyle}>
@@ -56,9 +82,15 @@ class Signup extends Component {
                 </div>
                 <Container className="userModal">
                     <Form>
+                        <Form.Group style={errorMessageStyle}>
+                            {this.state.errorMessage}
+                        </Form.Group>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control type="text" placeholder="Username" name="username" />
+                            <Form.Text className="text-muted">
+                                You'll use your user name to login.
+                            </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>

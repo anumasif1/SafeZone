@@ -22,6 +22,7 @@ module.exports = (app, passport) => {
         failureRedirect: '/login/'
     }));
 
+    app.get('/api/fail/', controller.handleFail);
     app.get('/api/getuser/', controller.getUser);
     app.get('/api/getchat/', controller.getChat);
     app.get('/api/getnews', controller.getNews);
