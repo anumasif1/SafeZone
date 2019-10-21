@@ -1,6 +1,6 @@
 #newsSec {
     margin-top: 100px;
-    width: 300px;
+    /* width: 300px; */
 }
 
 .newSecMapTitle {
@@ -8,5 +8,9 @@
 }
 
 .newSecMapLink {
+    color: black;
+}
+
+a.newSecMapLink {
     color: black;
 }
