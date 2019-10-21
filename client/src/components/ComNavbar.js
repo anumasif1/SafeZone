@@ -109,8 +109,9 @@ class ComNavbar extends Component {
                                 <li><Nav.Link href="/login/" style={loginStyle}>Login</Nav.Link></li>
                                 <li><Nav.Link href="" style={reqUserStyle}>{this.state.loggedInUser}</Nav.Link></li>
                                 <li><Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link></li>
-                                <li><Nav.Link href="/news/" style={{}}>News</Nav.Link></li>                         
-                           
+                                <li><Nav.Link href="/news/" style={{}}>News</Nav.Link></li>
+                                <li><Nav.Link href="/posts/" style={{}}>Post</Nav.Link></li>
+                                <li><Nav.Link href="/maps/" style={{}}>Map</Nav.Link></li>
                             {/* <Nav.Link href="/maps/" style={{}}>Maps</Nav.Link> */}
                             </ul>
                         </Nav>
