@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import './Posts.css';
+import Axios from 'axios';
 
 class Posts extends Component {
 
@@ -11,7 +12,21 @@ class Posts extends Component {
     handleOnClick = (event) => {
         event.preventDefault();
 
-        
+        let data = {
+            title: document.getElementById("postTitle").value,
+            post: document.getElementById("postContent").value,
+            level: document.getElementById("postLevel").value,
+            user: "User Name"
+        }
+
+        Axios
+            .post("/api/savepost/", data)
+            .then(resp => {
+                console.log(resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {

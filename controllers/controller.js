@@ -30,6 +30,21 @@ module.exports.saveChat = (req, res) => {
         })
 };
 
+module.exports.savePost = (req, res) => {
+    let dataPick = _.pick(req.body, ["title", "level", "post", "user"]);
+    db.Post
+        .create(dataPick)
+        .then(dbPost => {
+            return dbPost.findOneAndUpdate({_id: dataPick.id}, {$push: {post: dbPost._id}}, {new: true});
+        })
+        .then(dbPost => {
+            res.json(dbPost);
+        })
+        .catch(err => {
+            res.json(err);
+        })
+};
+
  module.exports.getNews = (req, res) => {
     axios.get("https://www.ocregister.com/?s=Irvine+crime&orderby=date&order=desc")
         .then((response) => {
