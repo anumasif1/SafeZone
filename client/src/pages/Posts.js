@@ -13,7 +13,7 @@ class Posts extends Component {
         userName: ""
     }
 
-    componentDidMount () {
+    componentDidMount() {
         Axios
             .get("/api/isloggedin")
             .then(resp => {
@@ -56,6 +56,20 @@ class Posts extends Component {
         return Moment(time).format("MM-DD-YYYY HH:MM");
     }
 
+    levelColor = level => {
+        if (level === 1) {
+            return {color: "green"};
+        } else if (level === 2) {
+            return {color: "yellowgreen"};
+        } else if (level === 3) {
+            return {color: "orange"};
+        } else if (level === 4) {
+            return {color: "coral", fontWeight: "bold"};
+        } else if (level === 5) {
+            return {color: "red", fontWeight: "bolder"};
+        }
+    }
+
     handleOnClick = (event) => {
         event.preventDefault();
 
@@ -83,14 +97,14 @@ class Posts extends Component {
         const notLoggedInStyle = {
             display: this.state.notLoggedInStyle,
             color: "blue",
-            marginTop: "100px",
+            marginTop: "80px",
             width: "100%",
             textAlign: "center"
         }
         return (
             <>
                 {/* isLoggedIn false display */}
-                <Container style={ notLoggedInStyle }>
+                <Container style={notLoggedInStyle}>
                     Please login to add new posts...
                 </Container>
                 {/* Post form to database */}
@@ -123,7 +137,16 @@ class Posts extends Component {
                 {/* Display all posts from database */}
                 <Container id="postDisplayCon">
                     {this.state.postFull.map(item => (
-                        <div key={item.id}>{this.dateFormat(item.createdAt)}//{item.user}//{item.title}//{item.level}//{item.post}</div>
+                        <div key={item.id} style={{ marginTop: "30px", marginBottom: "50px" }}>
+                            <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
+                            <div style={this.levelColor(item.level)}>Level: {item.level}</div>
+                            <div>
+                                <div style={{display: "inline", color: "green"}}>{item.user}: </div><div style={{fontWeight: "bold", display: "inline"}}>{item.title}</div>
+                            </div>
+                            <div>
+                                {item.post}
+                            </div>
+                        </div>
                     ))}
                 </Container>
             </>

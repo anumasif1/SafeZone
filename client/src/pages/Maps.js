@@ -30,6 +30,7 @@ class Maps extends Component {
         }).addTo(mymap);
 
         circle.bindPopup("IRVINE SAFE ZONE SCORE: 10");
+        circle.bindPopup("IRVINE SAFE 2");
     }
 
     render() {
