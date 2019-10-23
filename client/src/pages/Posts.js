@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import './Posts.css';
 import Axios from 'axios';
+import Moment from 'moment';
 
 class Posts extends Component {
 
     state = {
-        postFull: []
+        postFull: [],
+        addPostStyle: "none",
+        notLoggedInStyle: "",
+        userName: ""
     }
 
     componentDidMount () {
@@ -36,7 +40,9 @@ class Posts extends Component {
                     this.setState({
                         // userId: resp.data.id,
                         // chatBoxStyle: "",
-                        // userName: resp.data.user
+                        addPostStyle: "",
+                        notLoggedInStyle: "none",
+                        userName: resp.data.user
                     });
                 }
                 console.log("isloggedin", resp);
@@ -46,6 +52,10 @@ class Posts extends Component {
             });
     }
 
+    dateFormat = time => {
+        return Moment(time).format("MM-DD-YYYY HH:MM");
+    }
+
     handleOnClick = (event) => {
         event.preventDefault();
 
@@ -53,7 +63,7 @@ class Posts extends Component {
             title: document.getElementById("postTitle").value,
             post: document.getElementById("postContent").value,
             level: document.getElementById("postLevel").value,
-            user: "User Name"
+            user: this.state.userName
         }
 
         Axios
@@ -67,10 +77,24 @@ class Posts extends Component {
     }
 
     render() {
+        const addPostStyle = {
+            display: this.state.addPostStyle
+        };
+        const notLoggedInStyle = {
+            display: this.state.notLoggedInStyle,
+            color: "blue",
+            marginTop: "100px",
+            width: "100%",
+            textAlign: "center"
+        }
         return (
             <>
+                {/* isLoggedIn false display */}
+                <Container style={ notLoggedInStyle }>
+                    Please login to add new posts...
+                </Container>
                 {/* Post form to database */}
-                <Container id="postCon">
+                <Container id="postCon" style={addPostStyle}>
                     <Form>
                         <Form.Group controlId="postTitle">
                             <Form.Label>Title</Form.Label>
@@ -99,7 +123,7 @@ class Posts extends Component {
                 {/* Display all posts from database */}
                 <Container id="postDisplayCon">
                     {this.state.postFull.map(item => (
-                        <div key={item.id}>{item.user}//{item.title}//{item.level}//{item.post}</div>
+                        <div key={item.id}>{this.dateFormat(item.createdAt)}//{item.user}//{item.title}//{item.level}//{item.post}</div>
                     ))}
                 </Container>
             </>
