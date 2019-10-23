@@ -6,7 +6,44 @@ import Axios from 'axios';
 class Posts extends Component {
 
     state = {
+        postFull: []
+    }
 
+    componentDidMount () {
+        Axios
+            .get("/api/isloggedin")
+            .then(resp => {
+                Axios
+                    .get("/api/getpost/")
+                    .then(resp2 => {
+                        console.log("RESP2: ", resp2.data);
+                        this.setState({
+                            postFull: resp2.data
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+                if (resp.data.message === "n") {
+                    this.setState({
+                        // loginRequireStyle: "",
+                        // conversationFullStyle: "none"
+                    })
+                } else if (resp.data.message === "y") {
+                    let obj = {
+                        message: ["Start Chat Here..."]
+                    };
+                    this.setState({
+                        // userId: resp.data.id,
+                        // chatBoxStyle: "",
+                        // userName: resp.data.user
+                    });
+                }
+                console.log("isloggedin", resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleOnClick = (event) => {
@@ -32,6 +69,7 @@ class Posts extends Component {
     render() {
         return (
             <>
+                {/* Post form to database */}
                 <Container id="postCon">
                     <Form>
                         <Form.Group controlId="postTitle">
@@ -56,6 +94,13 @@ class Posts extends Component {
                             Submit
                         </Button>
                     </Form>
+                </Container>
+                <hr></hr>
+                {/* Display all posts from database */}
+                <Container id="postDisplayCon">
+                    {this.state.postFull.map(item => (
+                        <div key={item.id}>{item.user}//{item.title}//{item.level}//{item.post}</div>
+                    ))}
                 </Container>
             </>
         )

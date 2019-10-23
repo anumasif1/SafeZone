@@ -75,6 +75,18 @@ module.exports.getChat = (req, res) => {
         .catch(err => {
             res.json(err);
         });
+};
+
+module.exports.getPost = (req, res) => {
+    db.Post
+        .find({})
+        .sort([['createdAt', 1]])
+        .then(dbPost => {
+            res.json(dbPost);
+        })
+        .catch(err => {
+            res.json(err);
+        })
 }
 
 module.exports.getUser = (req, res) => {
