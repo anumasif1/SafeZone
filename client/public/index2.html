@@ -18,8 +18,8 @@
 </head>
 <style>
   #mapid {
-    height: 500px;
-    width: 500px;
+    height: 300px;
+    width: 900px;
   }
 </style>
 
@@ -41,25 +41,25 @@
       radius: 5000
     }).addTo(mymap);
 
-    circle.bindPopup("I am a circle.");
+    circle.bindPopup("IRVINE SAFE ZONE SCORE: 10");
 
-    $.get("/api.geotest/", (data) => {
-      console.log(data);
+    // $.get("/api.geotest/", (data) => {
+    //   console.log(data);
 
-      //pulls data and long and address
-      var latLong = [data[0].latitude, data[0].longitude];
-      //Need to replace setView to lat/long in database
-      var mymap = L.map('mapid').setView(latLong, 13);
+    //   //pulls data and long and address
+    //   var latLong = [data[0].latitude, data[0].longitude];
+    //   //Need to replace setView to lat/long in database
+    //   var mymap = L.map('mapid').setView(latLong, 13);
 
-      //Add Scale to Map
-      L.control.scale().addTo(mymap);
+    //   //Add Scale to Map
+    //   L.control.scale().addTo(mymap);
 
-      //Add Pin to Map, replace marker with lat/long in database
-      L.marker(latLong).bindPopup(address).addTo(mymap);
+    //   //Add Pin to Map, replace marker with lat/long in database
+    //   L.marker(latLong).bindPopup(address).addTo(mymap);
 
-      //Add Circle with 1000 meters from middle point
-      L.circle(latLong, { radius: 1000 }).addTo(mymap);
-      })
+    //   //Add Circle with 1000 meters from middle point
+    //   L.circle(latLong, { radius: 1000 }).addTo(mymap);
+    //   })
     
   </script>
 
