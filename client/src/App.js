@@ -25,6 +25,7 @@ function App() {
           <Route exact path="/news/" component={News} />
           <Route exact path="/posts/" component={Posts} />
           <Route exact path="/maps/" component={Maps} />
+          <Route exact path="/api/savecomment/" component={Posts} />
           {/* <Route exact path="/maps/" component={Maps} /> */}
           <Route component={NoMatch} />
         </Switch>

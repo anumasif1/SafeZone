@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { Component, useState } from 'react';
+import { Container, Form, Button, Collapse } from 'react-bootstrap';
 import './Posts.css';
 import Axios from 'axios';
 import Moment from 'moment';
+import MakeComment from './MakeComment'
 
 class Posts extends Component {
 
@@ -58,15 +59,15 @@ class Posts extends Component {
 
     levelColor = level => {
         if (level === 1) {
-            return {color: "green"};
+            return { color: "green" };
         } else if (level === 2) {
-            return {color: "yellowgreen"};
+            return { color: "yellowgreen" };
         } else if (level === 3) {
-            return {color: "orange"};
+            return { color: "orange" };
         } else if (level === 4) {
-            return {color: "coral", fontWeight: "bold"};
+            return { color: "coral", fontWeight: "bold" };
         } else if (level === 5) {
-            return {color: "red", fontWeight: "bolder"};
+            return { color: "red", fontWeight: "bolder" };
         }
     }
 
@@ -88,6 +89,13 @@ class Posts extends Component {
             .catch(err => {
                 console.log(err);
             });
+
+        window.location.reload();
+    }
+
+    handleOnClickComment = (event) => {
+        event.preventDefault();
+        alert("HELLO")
     }
 
     render() {
@@ -141,11 +149,12 @@ class Posts extends Component {
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
                             <div style={this.levelColor(item.level)}>Level: {item.level}</div>
                             <div>
-                                <div style={{display: "inline", color: "green"}}>{item.user}: </div><div style={{fontWeight: "bold", display: "inline"}}>{item.title}</div>
+                                <div style={{ display: "inline", color: "green" }}>{item.user}: </div><div style={{ fontWeight: "bold", display: "inline" }}>{item.title}</div>
                             </div>
-                            <div>
+                            <div>                                
                                 {item.post}
                             </div>
+                            <MakeComment notes={item.title} postId={item._id} user={this.state.userName}></MakeComment>
                         </div>
                     ))}
                 </Container>

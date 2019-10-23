@@ -30,6 +30,7 @@ module.exports = (app, passport) => {
 
     app.post('/api/savechat/', controller.saveChat);
     app.post('/api/savepost/', controller.savePost);
+    app.post('/api/savecomment/', controller.saveComment);
 
     app.get("/api/isloggedin/", isLoggedIn);
 
