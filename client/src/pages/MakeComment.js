@@ -1,7 +1,28 @@
 import React, { useState, Component } from 'react';
 import { Button, Collapse, Form } from 'react-bootstrap';
+import Axios from 'axios';
 
 function MakeComment(props) {
+
+    function handleOnClick (event) {
+        event.preventDefault();
+        let data = {
+            comment: document.getElementById(props.postId).value,
+            postId: props.postId,
+            user: props.user
+        }
+        Axios
+            .post("/api/savecomment/", data)
+            .then(resp => {
+                console.log(resp);
+                window.location.replace("/posts/");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        
+    }
+
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -16,15 +37,16 @@ function MakeComment(props) {
             </Button>
             <Collapse in={open}>
                 <div id="example-collapse-text">
-                    {props.notes}
+                    {props.comment.map((item, index) => (
+                        <div key={index}>{item.user}: {item.comment}</div>
+                    ))}
 
-                    <Form action="/api/savecomment/" method="POST">
-                        <Form.Group controlId="newComment">
+                    <Form>
+                        <Form.Group controlId={props.postId}>
                             <Form.Label>Make a comment: </Form.Label>
                             <Form.Control as="textarea" rows="3" name="comment" />
-                            <Form.Control value={props.postId} name="postId" style={{display: "none"}} />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={handleOnClick}>
                             Submit
                         </Button>
                     </Form>

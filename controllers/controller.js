@@ -46,7 +46,7 @@ module.exports.savePost = (req, res) => {
 };
 
 module.exports.saveComment = (req, res) => {
-    let dataPick = _.pick(req.body, ["postId", "comment"]);
+    let dataPick = _.pick(req.body, ["postId", "comment", "user"]);
     console.log(dataPick);
     db.Comment
         .create(dataPick)
@@ -119,6 +119,17 @@ module.exports.getUser = (req, res) => {
         .catch(err => {
             res.json(err);
         })
+};
+
+module.exports.delPost = (req, res) => {
+    let id = req.params.id;
+    db.Post
+        .findOneAndRemove({
+            _id: id
+        })
+        .catch(err => {
+            res.json(err);
+        });
 }
 
 module.exports.handleFail = (req, res) => {
