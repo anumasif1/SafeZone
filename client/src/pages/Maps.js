@@ -3,13 +3,16 @@ import './Maps.css';
 import { Container } from 'react-bootstrap';
 import L from 'leaflet';
 
+
+
+
 class Maps extends Component {
 
     state = {
 
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.getMapView();
     }
 
@@ -31,7 +34,7 @@ class Maps extends Component {
 
         var marker1 = L.marker([33.6694649, -117.8231107]).addTo(mymap);
         marker1.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()
-       
+
         var marker2 = L.marker([33.6461322, -117.8428335]).addTo(mymap);
         marker2.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()
     }
