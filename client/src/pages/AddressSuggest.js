@@ -10,7 +10,7 @@ class AddressSuggest extends Component {
           label="Address"
           value={this.props.query}
           onChange={this.props.onChange}
-          placeholder="start typing" />
+          placeholder="Type address here..." />
       </div>
     );
   }
