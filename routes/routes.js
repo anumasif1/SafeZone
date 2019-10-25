@@ -32,6 +32,8 @@ module.exports = (app, passport) => {
     app.post('/api/savepost/', controller.savePost);
     app.post('/api/savecomment/', controller.saveComment);
 
+    app.delete('/api/delpost/:id', controller.delPost);
+
     app.get("/api/isloggedin/", isLoggedIn);
 
     app.get("/api/logout/", logout);
@@ -49,7 +51,7 @@ module.exports = (app, passport) => {
     //check if user logged in for Navbar status
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
-            res.json({ message: "y", user: req.user.username, id: req.user._id })
+            res.json({ message: "y", user: req.user.username, id: req.user._id, group: req.user.group })
             // return next();
 
         } else {

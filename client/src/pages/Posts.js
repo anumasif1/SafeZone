@@ -11,7 +11,11 @@ class Posts extends Component {
         postFull: [],
         addPostStyle: "none",
         notLoggedInStyle: "",
-        userName: ""
+        makeCommentStyle: "none",
+        makeCommentLoginStyle: "",
+        delButtonStyle: "none",
+        userName: "",
+        userGroup: ""
     }
 
     componentDidMount() {
@@ -31,20 +35,25 @@ class Posts extends Component {
                     });
                 if (resp.data.message === "n") {
                     this.setState({
-                        // loginRequireStyle: "",
-                        // conversationFullStyle: "none"
+
                     })
                 } else if (resp.data.message === "y") {
                     let obj = {
                         message: ["Start Chat Here..."]
                     };
                     this.setState({
-                        // userId: resp.data.id,
-                        // chatBoxStyle: "",
+                        makeCommentStyle: "",
+                        makeCommentLoginStyle: "none",
                         addPostStyle: "",
                         notLoggedInStyle: "none",
-                        userName: resp.data.user
+                        userName: resp.data.user,
+                        userGroup: resp.data.group
                     });
+                    if (this.state.userGroup === "admin") {
+                        this.setState({
+                            delButtonStyle: ""
+                        })
+                    }
                 }
                 console.log("isloggedin", resp);
             })
@@ -98,6 +107,16 @@ class Posts extends Component {
         alert("HELLO")
     }
 
+    handleOnClickDelPost = (event, id) => {
+        event.preventDefault();
+        Axios
+            .delete("/api/delpost/" + id)
+            .catch(err => {
+                console.log(err);
+            })
+        window.location.reload();
+    }
+
     render() {
         const addPostStyle = {
             display: this.state.addPostStyle
@@ -108,7 +127,18 @@ class Posts extends Component {
             marginTop: "80px",
             width: "100%",
             textAlign: "center"
-        }
+        };
+        const makeCommentStyle = {
+            display: this.state.makeCommentStyle,
+            marginTop: "10px"
+        };
+        const makeCommentLoginStyle = {
+            display: this.state.makeCommentLoginStyle,
+            marginTop: "10px"
+        };
+        const delButtonStyle = {
+            display: this.state.delButtonStyle
+        };
         return (
             <>
                 {/* isLoggedIn false display */}
@@ -144,17 +174,23 @@ class Posts extends Component {
                 <hr></hr>
                 {/* Display all posts from database */}
                 <Container id="postDisplayCon">
-                    {this.state.postFull.map(item => (
-                        <div key={item.id} style={{ marginTop: "30px", marginBottom: "50px" }}>
+                    {this.state.postFull.map((item, index) => (
+                        <div key={index} style={{ marginTop: "30px", marginBottom: "50px" }}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
                             <div style={this.levelColor(item.level)}>Level: {item.level}</div>
                             <div>
                                 <div style={{ display: "inline", color: "green" }}>{item.user}: </div><div style={{ fontWeight: "bold", display: "inline" }}>{item.title}</div>
                             </div>
-                            <div>                                
-                                {item.post}
+                            <div>
+                                &bull; {item.post}
                             </div>
-                            <MakeComment notes={item.title} postId={item._id} user={this.state.userName}></MakeComment>
+                            <Button className="btn-sm" variant="outline-danger" onClick={(event) => {this.handleOnClickDelPost(event, item._id)}} style={delButtonStyle}>Delete Post</Button>
+                            <div id="makeComment" style={makeCommentStyle}>
+                                <MakeComment notes={item.title} postId={item._id} comment={item.comment} user={this.state.userName}></MakeComment>
+                            </div>
+                            <div id="makeCommentLogin" style={makeCommentLoginStyle} className="border">
+                                Please login to make comments...
+                            </div>
                         </div>
                     ))}
                 </Container>
