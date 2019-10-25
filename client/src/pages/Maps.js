@@ -29,8 +29,11 @@ class Maps extends Component {
             radius: 5000
         }).addTo(mymap);
 
-        circle.bindPopup("IRVINE SAFE ZONE SCORE: 10");
-        circle.bindPopup("IRVINE SAFE 2");
+        var marker1 = L.marker([33.6694649, -117.8231107]).addTo(mymap);
+        marker1.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()
+       
+        var marker2 = L.marker([33.6461322, -117.8428335]).addTo(mymap);
+        marker2.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()
     }
 
     render() {
