@@ -20,7 +20,7 @@ module.exports.saveChat = (req, res) => {
     db.Chat
         .create(dataPick)
         .then((dbChat) => {
-            return db.User.findOneAndUpdate({_id: dataPick.id}, {$push: {content: dbChat._id}}, {new: true});
+            return db.User.findOneAndUpdate({ _id: dataPick.id }, { $push: { content: dbChat._id } }, { new: true });
         })
         .then((dbUser) => {
             res.json(dbUser);
@@ -34,9 +34,9 @@ module.exports.savePost = (req, res) => {
     let dataPick = _.pick(req.body, ["title", "level", "post", "user"]);
     db.Post
         .create(dataPick)
-        .then(dbPost => {
-            return dbPost.findOneAndUpdate({_id: dataPick.id}, {$push: {post: dbPost._id}}, {new: true});
-        })
+        // .then(dbPost => {
+        //     return dbPost.findOneAndUpdate({ _id: dataPick.id }, { $push: { post: dbPost._id } }, { new: true });
+        // })
         .then(dbPost => {
             res.json(dbPost);
         })
@@ -45,7 +45,23 @@ module.exports.savePost = (req, res) => {
         })
 };
 
- module.exports.getNews = (req, res) => {
+module.exports.saveComment = (req, res) => {
+    let dataPick = _.pick(req.body, ["postId", "comment", "user"]);
+    console.log(dataPick);
+    db.Comment
+        .create(dataPick)
+        .then(dbComment => {
+            return db.Post.findOneAndUpdate({ _id: dataPick.postId }, { $push: { comment: dbComment._id } }, { new: true });
+        })
+        .then(dbPost => {
+            res.json(dbPost);
+        })
+        .catch(err => {
+            res.json(err);
+        })
+}
+
+module.exports.getNews = (req, res) => {
     axios.get("https://www.ocregister.com/?s=Irvine+crime&orderby=date&order=desc")
         .then((response) => {
             var $ = cheerio.load(response.data);
@@ -58,7 +74,7 @@ module.exports.savePost = (req, res) => {
                     objArray.push(result);
                 };
             });
-            res.json({obj: objArray});
+            res.json({ obj: objArray });
         })
         .catch((err) => {
             res.json(err);
@@ -80,6 +96,7 @@ module.exports.getChat = (req, res) => {
 module.exports.getPost = (req, res) => {
     db.Post
         .find({})
+        .populate("comment")
         .sort([['createdAt', 1]])
         .then(dbPost => {
             res.json(dbPost);
@@ -102,6 +119,17 @@ module.exports.getUser = (req, res) => {
         .catch(err => {
             res.json(err);
         })
+};
+
+module.exports.delPost = (req, res) => {
+    let id = req.params.id;
+    db.Post
+        .findOneAndRemove({
+            _id: id
+        })
+        .catch(err => {
+            res.json(err);
+        });
 }
 
 module.exports.handleFail = (req, res) => {
