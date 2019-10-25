@@ -26,12 +26,14 @@ class SafeZone extends Component {
                 this.setState({
                     loggedInUser: resp.data.user
                 })
+                if (resp.data.message === "y") {
+                    this.handleSocketIo();
+                }
                 console.log("isloggedin", resp);
             })
             .catch(err => {
                 console.log(err);
             });
-        this.handleSocketIo();
     }
 
     clearFadeoutTime = (arg) => {
