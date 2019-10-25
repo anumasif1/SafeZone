@@ -5,6 +5,7 @@ import SocketAlert from './SocketAlert';
 import io from 'socket.io-client';
 import Axios from 'axios';
 import './SafeZone.css';
+import News from './News';
 
 const socket = io();
 let ioTimeout; 
@@ -96,6 +97,10 @@ class SafeZone extends Component {
                 </div>
                 <div>
                     <AddressForm />
+                </div>
+                <div className='news-tab'>
+                    <h1>News Headlines</h1>
+                    <News />
                 </div>
             </Container >
         )
