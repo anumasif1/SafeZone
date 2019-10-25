@@ -4,6 +4,9 @@ import AddressInput from './AddressInput';
 import axios from 'axios';
 import './AddressForm.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
+import { Container, Button } from 'react-bootstrap'
+import Maps from './Maps';
+import L from 'leaflet';
 
 const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
 const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
@@ -22,6 +25,17 @@ class AddressForm extends Component {
     this.onCheck = this.onCheck.bind(this);
     // User has clicked the clear button
     this.onClear = this.onClear.bind(this);
+  }
+
+  state = {
+    spSecondaryStyle: "none",
+    addressFormStyle: ""
+  }
+
+  componentDidMount() {
+    this.setState({
+      spSecondaryStyle: "none"
+    })
   }
 
   onQuery(evt) {
@@ -87,7 +101,16 @@ class AddressForm extends Component {
     this.setState(state);
   }
 
+  handleOnClickSp (event) {
+    event.preventDefault();
+    window.location.reload();
+  }
+
   onCheck(evt) {
+    this.setState({
+      spSecondaryStyle: "",
+      addressFormStyle: "none"
+    })
     let params = {
       'app_id': 'BsV54tyJtu3XyQzqHSbS',
       'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
@@ -144,6 +167,26 @@ class AddressForm extends Component {
       });
   }
 
+  getMapView = (l1, l2) => {
+    let mymap = L.map('mapid').setView([this.state.coords.lat, this.state.coords.lon], 12);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1IjoiYWFydml6dTI5IiwiYSI6ImNrMXZtbWdhbjBpdG4zYnA1NGZ2eXpmZ2oifQ.nD8_Rft10MhlpJqZjnNYDw'
+    }).addTo(mymap);
+
+    let circle = L.circle([this.state.coords.lat, this.state.coords.lon], {
+      color: '#00BFFF',
+      fillColor: '	#00BFFF',
+      fillOpacity: 0.5,
+      radius: 5000
+    }).addTo(mymap);
+
+    circle.bindPopup("IRVINE SAFE ZONE SCORE: 10");
+    circle.bindPopup("IRVINE SAFE 2");
+  }
+
   alert() {
     if (!this.state.isChecked) {
       return;
@@ -156,6 +199,7 @@ class AddressForm extends Component {
         </div>
       );
     } else {
+      this.getMapView();
       return (
         <div className="alert alert-success" role="alert">
           <b>Valid Address.</b>  Location is {this.state.coords.lat}, {this.state.coords.lon}.
@@ -164,14 +208,26 @@ class AddressForm extends Component {
     }
   }
 
+
+
   render() {
     let result = this.alert();
+    const spSecondaryStyle = {
+      display: this.state.spSecondaryStyle,
+      margin: "auto"
+    }
+    const addressFormStyle = {
+      display: this.state.addressFormStyle
+    }
     return (
       <div className="container-main">
         <div>
           <h1>Sign Up, Check the Address and Stay Safe!</h1>
         </div>
-        <Jumbotron fluid>
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <Button variant="outline-primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to input another address</Button>
+        </div>
+        <Jumbotron fluid style={addressFormStyle}>
           <div className="card">
             <AddressSuggest
               query={this.state.query}
@@ -194,6 +250,8 @@ class AddressForm extends Component {
             </div>
           </div>
         </Jumbotron>
+        <div id="mapid"></div>
+        {/* <Maps /> */}
       </div>
 
     );
