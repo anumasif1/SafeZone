@@ -3,3 +3,11 @@
     margin: 0px;
     max-width: 100%;
 }
+
+.news-tab{
+    overflow: scroll;
+    color: black;
+    background-color: gray;
+    height: 400px;
+    width: 500px;
+}
