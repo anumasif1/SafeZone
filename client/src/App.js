@@ -11,6 +11,7 @@ import Chat from './pages/Chat';
 import News from './pages/News';
 import Maps from './pages/Maps';
 import Posts from './pages/Posts';
+import Panda from './pages/Panda';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/posts/" component={Posts} />
           <Route exact path="/maps/" component={Maps} />
           <Route exact path="/api/savecomment/" component={Posts} />
+          <Route exact path="/panda/" component={Panda} />
           {/* <Route exact path="/maps/" component={Maps} /> */}
           <Route component={NoMatch} />
         </Switch>

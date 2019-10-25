@@ -100,7 +100,7 @@ class ComNavbar extends Component {
                         <li><Nav.Link href="" onClick={this.handleOnClickLogout} style={logoutStyle}>Logout</Nav.Link></li>
                         <li><Nav.Link href="/news/" style={{}}>News</Nav.Link></li>
                         <li><Nav.Link href="/posts/" style={{}}>Post</Nav.Link></li>
-                        <li><Nav.Link href="/maps/" style={{}}>Map</Nav.Link></li>
+                        <li><Nav.Link href="/panda/" style={{}}><img src="./avatar.jpg" width="20px" height="20px" /></Nav.Link></li>
                     </ul>
                 </Nav>
             </>

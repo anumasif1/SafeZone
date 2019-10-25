@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(flash());
 
-app.use(session({ secret: "mac master", cookie: { maxAge: 300 * 60 * 1000 }, resave: true, saveUninitialized: true }));
+app.use(session({ secret: "mac master", cookie: { maxAge: 30 * 60 * 1000 }, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -42,21 +42,25 @@ require('./routes/routes')(app, passport)
 io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('sendmsg', function (data) {
-        console.log('server receive :', data);
+        console.log('sendmsg => server receive :', data);
         io.emit('recvmsg', data)
-    })
+    });
     socket.on('sendchat', function (data) {
-        console.log('server receive :', data);
+        console.log('sendchat => server receive :', data);
         io.emit('recvchat', data)
-    })
+    });
     socket.on('sendtype', function (data) {
-        console.log('server receive :', data);
+        console.log('sendtype => server receive :', data);
         io.emit('recvtype', data)
-    })
+    });
     socket.on('sendinitype', function (data) {
-        console.log('server receive :', data);
+        console.log('sendinitype => server receive :', data);
         io.emit('recvinitype', data)
-    })
+    });
+    socket.on('sendreactchat', function (data) {
+        console.log('sendreactchat => server receive :', data);
+        io.emit('recvreactchat', data)
+    });
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
