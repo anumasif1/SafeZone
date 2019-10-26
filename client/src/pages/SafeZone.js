@@ -6,13 +6,15 @@ import io from 'socket.io-client';
 import Axios from 'axios';
 import './SafeZone.css';
 import News from './News';
+import { Widget, addResponseMessage, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
+import './ReactChat.css';
 
 const socket = io();
-let ioTimeout; 
+let ioTimeout;
 
 class SafeZone extends Component {
 
-    
+
     state = {
         socketLoadStyle: "none",
         valueSocketIo: "",
@@ -21,6 +23,7 @@ class SafeZone extends Component {
     }
 
     componentDidMount() {
+        addResponseMessage("Welcome to this awesome chat!");
         Axios
             .get("/api/isloggedin")
             .then(resp => {
@@ -52,17 +55,17 @@ class SafeZone extends Component {
 
     handleSocketIo = () => {
         // if (item) {
-            socket.emit('sendmsg', "New Neighbor Checked In!");
-            socket.on('recvmsg', data => {
-                this.setState({
-                    socketLoadStyle: "inline",
-                    timeoutStyle: "inline",
-                    valueSocketIo: '"' + data + '"',
-                });
-                // document.getElementById("socketNotification").innerHTML = data
-                this.fadeoutSocketIoNotification(3);
-                console.log('client receive :', data);
-            })
+        socket.emit('sendmsg', "New Neighbor Checked In!");
+        socket.on('recvmsg', data => {
+            this.setState({
+                socketLoadStyle: "inline",
+                timeoutStyle: "inline",
+                valueSocketIo: '"' + data + '"',
+            });
+            // document.getElementById("socketNotification").innerHTML = data
+            this.fadeoutSocketIoNotification(3);
+            console.log('client receive :', data);
+        })
         // } 
         // else {
         //     socket.emit('sendmsg', "Welcome!");
@@ -78,6 +81,16 @@ class SafeZone extends Component {
         // }
         return false;
     };
+
+    handleSocketIoPanda = newMessage => {
+        socket.removeAllListeners();
+        socket.emit('sendreactchat', this.state.loggedInUser + ": " + newMessage);
+        socket.on('recvreactchat', data => {
+            // this.handleNewUserMessage(newMessage, data);
+            addResponseMessage(data);
+        })
+        // socket.removeListener('recvreactchat');
+    }
 
     render() {
         const socketIoNotification = {
@@ -101,6 +114,14 @@ class SafeZone extends Component {
                 <div className='news-tab'>
                     <h1>News Headlines</h1>
                     <News />
+                </div>
+                <div className="App">
+                    <Widget
+                        handleNewUserMessage={this.handleSocketIoPanda}
+                        // profileAvatar={logo}
+                        title="Safe Zone Community"
+                        subtitle="Stay Alive"
+                    />
                 </div>
             </Container >
         )

@@ -87,24 +87,6 @@ class Chat extends Component {
 
     }
 
-    // handleSocketIoKeyDown = () => {
-    //     socket.on('recvtype', data => {
-    //         this.setState({
-    //             onChangeTest: data + " is typing..."
-    //         });
-    //         console.log(data)
-    //     })
-    // }
-
-    // handleSocketIoKeyUp = () => {
-    //     socket.on('recvtype', data => {
-    //         this.setState({
-    //             onChangeTest: ""
-    //         });
-    //         console.log(data)
-    //     })
-    // }
-
     handleOnClickSubmit = event => {
         event.preventDefault();
         let inputValue = document.getElementById("chatInput").value;
@@ -114,9 +96,6 @@ class Chat extends Component {
         let obj = {
             message: spVar
         }
-        // if (this.state.conversation[0] === "Start Chat Here..." || this.state.conversation[0] === "Please Login to Start Chat...") {
-        //     this.state.conversation.splice(0,1);
-        // }
         this.handleSocketIo(obj);
 
         let data = {
