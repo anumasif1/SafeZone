@@ -8,6 +8,7 @@ import './SafeZone.css';
 import News from './News';
 import { Widget, addResponseMessage, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import './ReactChat.css';
+// import logo from './favicon.ico';
 
 const socket = io();
 let ioTimeout;
@@ -19,19 +20,34 @@ class SafeZone extends Component {
         socketLoadStyle: "none",
         valueSocketIo: "",
         timeoutStyle: "",
-        loggedInUser: ""
+        loggedInUser: "",
+        rcwSenderDisplayStyle: "none",
+        reactChatStyle: "none !important",
+        typingStatus: ""
     }
 
     componentDidMount() {
+        // document.getElementsByClassName("reactChat").style.display = "none";
         addResponseMessage("Welcome to this awesome chat!");
+        this.setState({
+            typingStatus: "Stay Alive!"
+        })
         Axios
             .get("/api/isloggedin")
             .then(resp => {
-                this.setState({
-                    loggedInUser: resp.data.user
-                })
+                if (resp.data.message=== "n") {
+                    this.setState({
+                        loggedInUser: "Guest",
+                        rcwSenderDisplayStyle: ""
+                    });
+                }
+                // document.getElementsByClassName("reactChat").style.display = "";
                 if (resp.data.message === "y") {
                     this.handleSocketIo();
+                    this.setState({
+                        loggedInUser: resp.data.user,
+                        rcwSenderDisplayStyle: ""
+                    });
                 }
                 console.log("isloggedin", resp);
             })
@@ -53,6 +69,27 @@ class SafeZone extends Component {
         }, time * 1000);
     }
 
+    fadeoutSocketIoTyping = (time) => {
+        this.clearFadeoutTime(ioTimeout);
+        ioTimeout = setTimeout(() => {
+            this.setState({
+                socketLoadStyle: "none",
+                loadTypingStyle: "none"
+            })
+        }, time * 1000);
+    }
+
+    handleOnChangeTyping = () => {
+        socket.emit('sendtype', this.state.userName);
+        socket.on('recvtype', data => {
+            this.setState({
+                onChangeTest: data + " is typing..."
+            });
+            this.fadeoutSocketIoTyping(2);
+            console.log(data)
+        })
+    }
+
     handleSocketIo = () => {
         // if (item) {
         socket.emit('sendmsg', "New Neighbor Checked In!");
@@ -66,24 +103,16 @@ class SafeZone extends Component {
             this.fadeoutSocketIoNotification(3);
             console.log('client receive :', data);
         })
-        // } 
-        // else {
-        //     socket.emit('sendmsg', "Welcome!");
-        //     socket.on('recvmsg', data => {
-        //         this.setState({
-        //             socketLoadStyle: "inline",
-        //             timeoutStyle: "inline",
-        //             valueSocketIo: '"' + data + '"',
-        //         });
-        //         this.fadeoutSocketIoNotification(5);
-        //         console.log('client receive :', data);
-        //     })
-        // }
         return false;
     };
 
     handleSocketIoPanda = newMessage => {
         socket.removeAllListeners();
+        if (!this.loggedInUser) {
+            this.setState({
+                // loggedInUser: "Guest"
+            })
+        }
         socket.emit('sendreactchat', this.state.loggedInUser + ": " + newMessage);
         socket.on('recvreactchat', data => {
             // this.handleNewUserMessage(newMessage, data);
@@ -103,6 +132,9 @@ class SafeZone extends Component {
             textAlign: "center",
             marginTop: "80px"
         }
+        const reactChatStyle = {
+            display: this.reactChatStyle
+        }
         return (
             <Container>
                 <div className="fixed-top" id="socketAlertComponent" style={timeoutStyle}>
@@ -115,13 +147,16 @@ class SafeZone extends Component {
                     <h1>News Headlines</h1>
                     <News />
                 </div>
-                <div className="App">
-                    <Widget
-                        handleNewUserMessage={this.handleSocketIoPanda}
-                        // profileAvatar={logo}
-                        title="Safe Zone Community"
-                        subtitle="Stay Alive"
-                    />
+                <div style={reactChatStyle}>
+                    <div className="App reactChat">
+                        <Widget
+                            handleNewUserMessage={this.handleSocketIoPanda}
+                            // profileAvatar={logo}
+                            title="Safe Zone Community"
+                            subtitle="Chat Room"
+                            
+                        />
+                    </div>
                 </div>
             </Container >
         )
