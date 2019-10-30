@@ -5,8 +5,8 @@ import axios from 'axios';
 import './AddressForm.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import { Container, Button } from 'react-bootstrap'
-import Maps from './Maps';
 import L from 'leaflet';
+import './Maps.css'
 
 const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
 const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
@@ -29,12 +29,16 @@ class AddressForm extends Component {
 
   state = {
     spSecondaryStyle: "none",
-    addressFormStyle: ""
+    addressFormStyle: "",
+    mapStyle: ""
   }
 
   componentDidMount() {
     this.setState({
-      spSecondaryStyle: "none"
+      spSecondaryStyle: "none",
+      mapStyle: "none",
+      mapShowAddress: "",
+      mapShowTitle: ""
     })
   }
 
@@ -101,15 +105,29 @@ class AddressForm extends Component {
     this.setState(state);
   }
 
-  handleOnClickSp (event) {
+  handleOnClickSp(event) {
     event.preventDefault();
     window.location.reload();
   }
 
   onCheck(evt) {
+
+    axios
+      .get("/api/getpost/")
+      .then(resp => {
+        console.log("RESP: ", resp.data);
+        this.setState({
+          mapShowAddress
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      
     this.setState({
       spSecondaryStyle: "",
-      addressFormStyle: "none"
+      addressFormStyle: "none",
+      mapStyle: ""
     })
     let params = {
       'app_id': 'BsV54tyJtu3XyQzqHSbS',
@@ -168,10 +186,10 @@ class AddressForm extends Component {
   }
 
   getMapView = (l1, l2) => {
-    let mymap = L.map('mapid').setView([this.state.coords.lat, this.state.coords.lon], 12);
+    let mymap = L.map('mapid').setView([this.state.coords.lat, this.state.coords.lon], 18);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: 20,
       id: 'mapbox.streets',
       accessToken: 'pk.eyJ1IjoiYWFydml6dTI5IiwiYSI6ImNrMXZtbWdhbjBpdG4zYnA1NGZ2eXpmZ2oifQ.nD8_Rft10MhlpJqZjnNYDw'
     }).addTo(mymap);
@@ -180,11 +198,10 @@ class AddressForm extends Component {
       color: '#00BFFF',
       fillColor: '	#00BFFF',
       fillOpacity: 0.5,
-      radius: 5000
+      radius: 50
     }).addTo(mymap);
 
-    circle.bindPopup("IRVINE SAFE ZONE SCORE: 10");
-    circle.bindPopup("IRVINE SAFE 2");
+    circle.bindPopup("Hello: " + this.state.address.street);
   }
 
   alert() {
@@ -219,6 +236,9 @@ class AddressForm extends Component {
     const addressFormStyle = {
       display: this.state.addressFormStyle
     }
+    const mapStyle = {
+      display: this.state.mapStyle
+    }
     return (
       <div className="container-main">
         <div>
@@ -243,6 +263,7 @@ class AddressForm extends Component {
             />
 
             {result}
+
             <div className="form-button" style={{ padding: "10px" }}>
               <button type="submit" className="btn btn-light ml-10" onClick={this.onClear}>Clear</button>
               <button type="submit" className="btn btn-light" onClick={this.onCheck}>Check</button>
@@ -250,8 +271,7 @@ class AddressForm extends Component {
             </div>
           </div>
         </Jumbotron>
-        <div id="mapid"></div>
-        {/* <Maps /> */}
+        <div id="mapid" style={mapStyle}></div>
       </div>
 
     );

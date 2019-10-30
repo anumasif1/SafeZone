@@ -87,6 +87,7 @@ class Posts extends Component {
             title: document.getElementById("postTitle").value,
             post: document.getElementById("postContent").value,
             level: document.getElementById("postLevel").value,
+            address: document.getElementById("postAddress").value,
             user: this.state.userName
         }
 
@@ -162,6 +163,10 @@ class Posts extends Component {
                                 <option>5</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group controlId="postAddress">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control type="text" placeholder="Enter address..." />
+                        </Form.Group>
                         <Form.Group controlId="postContent">
                             <Form.Label>Post Details</Form.Label>
                             <Form.Control as="textarea" rows="3" placeholder="Enter details..." />
@@ -180,6 +185,9 @@ class Posts extends Component {
                             <div style={this.levelColor(item.level)}>Level: {item.level}</div>
                             <div>
                                 <div style={{ display: "inline", color: "green" }}>{item.user}: </div><div style={{ fontWeight: "bold", display: "inline" }}>{item.title}</div>
+                            </div>
+                            <div>
+                                {item.address}
                             </div>
                             <div>
                                 &bull; {item.post}

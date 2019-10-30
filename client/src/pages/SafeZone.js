@@ -35,7 +35,7 @@ class SafeZone extends Component {
         Axios
             .get("/api/isloggedin")
             .then(resp => {
-                if (resp.data.message=== "n") {
+                if (resp.data.message === "n") {
                     this.setState({
                         loggedInUser: "Guest",
                         rcwSenderDisplayStyle: ""
@@ -140,6 +140,41 @@ class SafeZone extends Component {
                 <div className="fixed-top" id="socketAlertComponent" style={timeoutStyle}>
                     <SocketAlert style={socketIoNotification} value={this.state.valueSocketIo} />
                 </div>
+                <Carousel>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="./map-phone2.jpg"
+                            alt="First slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Sign Up, Check the Address & Stay Safe!</h3>
+                            <p></p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="./image2-2.jpg"
+                            alt="Third slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Report the incidents and keep everyone safe!</h3>
+                            <p></p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="./image3.jpg"
+                            alt="Third slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Check the headlines from your area!</h3>
+                            <p></p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
                 <div>
                     <AddressForm />
                 </div>
@@ -154,7 +189,7 @@ class SafeZone extends Component {
                             // profileAvatar={logo}
                             title="Safe Zone Community"
                             subtitle="Chat Room"
-                            
+
                         />
                     </div>
                 </div>

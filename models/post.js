@@ -15,6 +15,10 @@ const PostSchema = new Schema({
         type: Number,
         required: true
     },
+    address: {
+        type: String,
+        require: true
+    },
     user: {
         type: String,
         required: true

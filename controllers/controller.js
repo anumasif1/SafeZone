@@ -31,7 +31,7 @@ module.exports.saveChat = (req, res) => {
 };
 
 module.exports.savePost = (req, res) => {
-    let dataPick = _.pick(req.body, ["title", "level", "post", "user"]);
+    let dataPick = _.pick(req.body, ["title", "level", "post", "address", "user"]);
     db.Post
         .create(dataPick)
         // .then(dbPost => {
