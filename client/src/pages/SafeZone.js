@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Carousel } from 'react-bootstrap';
 import AddressForm from './AddressForm';
 import SocketAlert from './SocketAlert';
 import io from 'socket.io-client';

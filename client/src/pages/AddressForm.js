@@ -117,13 +117,13 @@ class AddressForm extends Component {
       .then(resp => {
         console.log("RESP: ", resp.data);
         this.setState({
-          mapShowAddress
+          // mapShowAddress
         })
       })
       .catch(err => {
         console.log(err);
       });
-      
+
     this.setState({
       spSecondaryStyle: "",
       addressFormStyle: "none",
