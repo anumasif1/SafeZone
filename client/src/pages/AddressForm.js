@@ -30,15 +30,16 @@ class AddressForm extends Component {
   state = {
     spSecondaryStyle: "none",
     addressFormStyle: "",
-    mapStyle: ""
+    mapStyle: "",
+    mapShowAddress: "",
+    mapShowTitle: "",
+    mapShowLevel: ""
   }
 
   componentDidMount() {
     this.setState({
       spSecondaryStyle: "none",
-      mapStyle: "none",
-      mapShowAddress: "",
-      mapShowTitle: ""
+      mapStyle: "none"
     })
   }
 
@@ -116,73 +117,89 @@ class AddressForm extends Component {
       .get("/api/getpost/")
       .then(resp => {
         console.log("RESP: ", resp.data);
+        console.log(this.state.address.street)
+        for (let i = 0; i < resp.data.length; i++) {
+          if (this.state.address.street === resp.data[i].address) {
+            this.setState({
+              mapShowAddress: resp.data[i].address,
+              mapShowTitle: resp.data[i].title,
+              mapShowLevel: resp.data[i].level
+            })
+          }
+        }
+
+
         this.setState({
           // mapShowAddress
         })
+
+        this.setState({
+          spSecondaryStyle: "",
+          addressFormStyle: "none",
+          mapStyle: ""
+        })
+        let params = {
+          'app_id': 'BsV54tyJtu3XyQzqHSbS',
+          'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
+        }
+
+        if (this.state.locationId.length > 0) {
+          params['locationId'] = this.state.locationId;
+        } else {
+          params['searchtext'] = this.state.address.street
+            + this.state.address.city
+            + this.state.address.state
+            + this.state.address.postalCode
+            + this.state.address.country;
+        }
+
+        const self = this;
+        axios.get('https://geocoder.api.here.com/6.2/geocode.json',
+          { 'params': params }
+        ).then(function (response) {
+          const view = response.data.Response.View
+          if (view.length > 0 && view[0].Result.length > 0) {
+            const location = view[0].Result[0].Location;
+
+            self.setState({
+              'isChecked': 'true',
+              'locationId': '',
+              'query': location.Address.Label,
+              'address': {
+                'street': location.Address.HouseNumber + ' ' + location.Address.Street,
+                'city': location.Address.City,
+                'state': location.Address.State,
+                'postalCode': location.Address.PostalCode,
+                'country': location.Address.Country
+              },
+              'coords': {
+                'lat': location.DisplayPosition.Latitude,
+                'lon': location.DisplayPosition.Longitude
+              }
+            });
+          } else {
+            self.setState({
+              isChecked: true,
+              coords: null,
+            })
+          }
+
+        })
+          .catch(function (error) {
+            console.log('caught failed query');
+            self.setState({
+              isChecked: true,
+              coords: null
+            });
+          });
+
+
       })
       .catch(err => {
         console.log(err);
       });
 
-    this.setState({
-      spSecondaryStyle: "",
-      addressFormStyle: "none",
-      mapStyle: ""
-    })
-    let params = {
-      'app_id': 'BsV54tyJtu3XyQzqHSbS',
-      'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
-    }
 
-    if (this.state.locationId.length > 0) {
-      params['locationId'] = this.state.locationId;
-    } else {
-      params['searchtext'] = this.state.address.street
-        + this.state.address.city
-        + this.state.address.state
-        + this.state.address.postalCode
-        + this.state.address.country;
-    }
-
-    const self = this;
-    axios.get('https://geocoder.api.here.com/6.2/geocode.json',
-      { 'params': params }
-    ).then(function (response) {
-      const view = response.data.Response.View
-      if (view.length > 0 && view[0].Result.length > 0) {
-        const location = view[0].Result[0].Location;
-
-        self.setState({
-          'isChecked': 'true',
-          'locationId': '',
-          'query': location.Address.Label,
-          'address': {
-            'street': location.Address.HouseNumber + ' ' + location.Address.Street,
-            'city': location.Address.City,
-            'state': location.Address.State,
-            'postalCode': location.Address.PostalCode,
-            'country': location.Address.Country
-          },
-          'coords': {
-            'lat': location.DisplayPosition.Latitude,
-            'lon': location.DisplayPosition.Longitude
-          }
-        });
-      } else {
-        self.setState({
-          isChecked: true,
-          coords: null,
-        })
-      }
-
-    })
-      .catch(function (error) {
-        console.log('caught failed query');
-        self.setState({
-          isChecked: true,
-          coords: null
-        });
-      });
   }
 
   getMapView = (l1, l2) => {
@@ -201,7 +218,7 @@ class AddressForm extends Component {
       radius: 50
     }).addTo(mymap);
 
-    circle.bindPopup("Hello: " + this.state.address.street);
+    circle.bindPopup(this.state.mapShowLevel + " " + this.state.mapShowTitle + ": " + this.state.mapShowAddress);
   }
 
   alert() {
