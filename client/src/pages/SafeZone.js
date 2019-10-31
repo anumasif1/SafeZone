@@ -159,7 +159,7 @@ class SafeZone extends Component {
                             alt="Third slide"
                         />
                         <Carousel.Caption>
-                            <h3>Report the incidents and keep everyone safe!</h3>
+                            <h3>Report the incidents in your area!</h3>
                             <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
@@ -170,7 +170,7 @@ class SafeZone extends Component {
                             alt="Third slide"
                         />
                         <Carousel.Caption>
-                            <h3>Check the headlines from your area!</h3>
+                            <h3> See latest news from your city!</h3>
                             <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>

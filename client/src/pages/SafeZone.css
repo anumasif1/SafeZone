@@ -11,3 +11,10 @@
     height: 400px;
     width: 500px;
 }
+
+.w-100 {
+    width: 100%!important;
+    height: 500px;
+    margin-top: 50px;
+    filter: brightness(50%);
+}

@@ -258,9 +258,9 @@ class AddressForm extends Component {
     }
     return (
       <div className="container-main">
-        <div>
+        {/* <div>
           <h1>Sign Up, Check the Address and Stay Safe!</h1>
-        </div>
+        </div> */}
         <div style={{ width: "100%", textAlign: "center" }}>
           <Button variant="outline-primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to input another address</Button>
         </div>
