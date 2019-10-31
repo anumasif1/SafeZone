@@ -7,14 +7,28 @@
 .news-tab{
     overflow: scroll;
     color: black;
-    background-color: gray;
+    /* background-color: gray; */
     height: 400px;
-    width: 500px;
+    /* width: 500px; */
 }
 
 .w-100 {
     width: 100%!important;
-    height: 500px;
+    height: 200px;
     margin-top: 50px;
     filter: brightness(50%);
+}
+
+#newsSec {
+    /* margin-top: 100px !important; */
+    width: 300px;
+    margin: auto;
+}
+
+.carousel {
+    position: relative;
+    width: 800px;
+    margin: auto;
+    height: 240px;
+    margin-top: 25px;
 }

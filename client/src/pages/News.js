@@ -30,6 +30,7 @@ class News extends Component {
         return (
             <>
                 <Container id="newsSec">
+                    {/* <h1>Headlines</h1> */}
                     {this.state.news.map((item, index) => (
                         <div key={item.id}>
                             <div className="newSecMapTitle">

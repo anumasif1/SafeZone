@@ -178,9 +178,16 @@ class SafeZone extends Component {
                 <div>
                     <AddressForm />
                 </div>
-                <div className='news-tab'>
-                    <h1>News Headlines</h1>
+                <div className=' card news-tab'>
+                <div className='row col-md-2'>
+                        <img src="./news.png" alt="latest news"/>
+                    </div>
+                    <div className='row col-md-10 float-right'>
+                    {/* <h1>Headlines</h1>   */}
                     <News />
+                    </div>
+                    {/* <h1>News Headlines</h1>
+                    <News /> */}
                 </div>
                 <div style={reactChatStyle}>
                     <div className="App reactChat">

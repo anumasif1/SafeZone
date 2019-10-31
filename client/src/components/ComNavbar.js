@@ -90,7 +90,7 @@ class ComNavbar extends Component {
 
         return (
             <>
-                <Nav className="navbar navbar-light bg-success fixed-top p-0">
+                <Nav className="navbar navbar-light bg-dark fixed-top p-0">
                     <span className="navbar-brand mb-0 h1"><a href="/" id="topTitle">SafeZone</a></span>
                     <ul>
                         <li><Nav.Link href="/chat/">Chat</Nav.Link></li>

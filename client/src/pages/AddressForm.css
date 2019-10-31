@@ -1,11 +1,11 @@
-.container-main{
+/* .container-main{
     margin-top: 100px;
-}
+} */
 
 .card{
-    padding: 10px;
-    background-color: #28a745!important;
-    color: white;
+    /* padding: 10px; */
+    /* background-color: #28a745!important;
+    color: white; */
     padding-top: 20px;
 }
 .card-body {
@@ -15,6 +15,8 @@
 div.card{
     max-width: 800px;
     margin: auto;
+    margin-top: 5px;
+    /* margin-top: 155px; */
 }
 
 button{
@@ -28,15 +30,23 @@ button{
 }
 
 .jumbotron{
-    padding: 20px;
+    /* padding: 20px; */
     margin:0;
-    background-image: url('../m-image.jpg');
+    background-image: url('../dust_scratches.png');
     background-blend-mode: unset;
     /* margin-top: 30px; */
     margin-bottom: 30px;
+    background-blend-mode: lighten;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 h1{
     color: #28a745;
     text-align: center;
+}
+
+ol.carousel-indicators{
+    margin: 0px;
 }
