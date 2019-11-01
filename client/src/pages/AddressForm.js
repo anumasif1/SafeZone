@@ -33,7 +33,8 @@ class AddressForm extends Component {
     mapStyle: "",
     mapShowAddress: "",
     mapShowTitle: "",
-    mapShowLevel: ""
+    mapShowLevel: "",
+    mapShowDetail: ""
   }
 
   componentDidMount() {
@@ -117,13 +118,21 @@ class AddressForm extends Component {
       .get("/api/getpost/")
       .then(resp => {
         console.log("RESP: ", resp.data);
-        console.log(this.state.address.street)
+        // console.log(this.state.address.street)
         for (let i = 0; i < resp.data.length; i++) {
           if (this.state.address.street === resp.data[i].address) {
             this.setState({
               mapShowAddress: resp.data[i].address,
               mapShowTitle: resp.data[i].title,
-              mapShowLevel: resp.data[i].level
+              mapShowLevel: resp.data[i].level,
+              mapShowDetail: resp.data[i].post
+            })
+          } else {
+            this.setState({
+              mapShowAddress: this.state.address.street,
+              mapShowTitle: "Alert",
+              mapShowLevel: "",
+              mapShowDetail: "There is no data found at this address!"
             })
           }
         }
@@ -218,14 +227,15 @@ class AddressForm extends Component {
       radius: 50
     }).addTo(mymap);
 
-    console.log(this.state.mapShowTitle)
-
-    if (this.state.mapShowTitle.length < 2) {
-      circle.bindPopup("No data found in this address!");
-    } else {
-      circle.bindPopup(this.state.mapShowLevel + " " + this.state.mapShowTitle + ": " + this.state.mapShowAddress);
-    }
-
+    // let spState = this.state.mapShowTitle;
+    // console.log(spState)
+    // if (spState === null) {
+    //   console.log("spState")
+    //   circle.bindPopup("No data found in this address!");
+    // } else {
+      circle.bindPopup(this.state.mapShowAddress + "<br>" + this.state.mapShowLevel + " " + this.state.mapShowTitle + ": " + this.state.mapShowDetail);
+    // }
+  
   }
 
   alert() {
