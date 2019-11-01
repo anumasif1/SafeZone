@@ -124,7 +124,7 @@ class AddressForm extends Component {
             this.setState({
               mapShowAddress: "<a style='font-weight: bolder'>Address:</a> " + this.state.address.street + "<br>",
               mapShowTitle: "<a style='font-weight: bold'>Title:</a> " + resp.data[i].title + "<br>",
-              mapShowLevel: "<a style='font-weight: bold; color: red;'>EM Level: " + resp.data[i].level + "</a><br>" ,
+              mapShowLevel: "<a style='font-weight: bold; color: red;'>EM Level: " + resp.data[i].level + "</a><br>",
               mapShowDetail: "<a style='font-weight: bold'>Detail:</a> " + resp.data[i].post
             })
           } else {
@@ -258,7 +258,8 @@ class AddressForm extends Component {
     let result = this.alert();
     const spSecondaryStyle = {
       display: this.state.spSecondaryStyle,
-      margin: "auto"
+      margin: "auto",
+      width: "100%"
     }
     const addressFormStyle = {
       display: this.state.addressFormStyle
@@ -271,9 +272,6 @@ class AddressForm extends Component {
         {/* <div>
           <h1>Sign Up, Check the Address and Stay Safe!</h1>
         </div> */}
-        <div style={{ width: "100%", textAlign: "center" }}>
-          <Button variant="outline-primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to input another address</Button>
-        </div>
         <Jumbotron fluid style={addressFormStyle}>
           <div className="card">
             <AddressSuggest
@@ -296,9 +294,14 @@ class AddressForm extends Component {
               <button type="submit" className="btn btn-light" onClick={this.onCheck}>Check</button>
 
             </div>
+
           </div>
         </Jumbotron>
-        <div id="mapid" style={mapStyle}></div>
+
+        <div id="mapid" className="card" style={mapStyle}></div>
+        <div style={{ width: "100%", textAlign: "center", marginBottom: "30px" }} className="card">
+          <Button size="lg" variant="primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to check another address</Button>
+        </div>
       </div>
 
     );
