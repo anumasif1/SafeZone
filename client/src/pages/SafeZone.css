@@ -1,10 +1,10 @@
-.container{
+.container {
     padding: 0px;
     margin: 0px;
     max-width: 100%;
 }
 
-.news-tab{
+.news-tab {
     overflow: scroll;
     color: black;
     /* background-color: gray; */
@@ -15,9 +15,9 @@
 
 .w-100 {
     width: 100%!important;
-    height: 200px;
+    height: 300px;
     margin-top: 50px;
-    filter: brightness(50%);
+    filter: brightness(30%);
 }
 
 #newsSec {
@@ -30,10 +30,15 @@
     position: relative;
     width: 800px;
     margin: auto;
-    height: 240px;
+    height: 300px;
     margin-top: 25px;
 }
 
-.button{
+.button {
     font-size: 12px !important;
+}
+
+.slideFontStyle {
+    margin-bottom: 10%;
+    font-size: 30px;
 }

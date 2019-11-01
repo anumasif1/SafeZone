@@ -145,33 +145,33 @@ class SafeZone extends Component {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="./map-phone2.jpg"
+                            src="./slide-1.jpg"
                             alt="First slide"
                         />
                         <Carousel.Caption>
-                            <h3>Sign Up, Check the Address & Stay Safe!</h3>
+                            <h3 className="slideFontStyle">Sign Up, Check the Address & Stay Safe!</h3>
                             <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="./image2-2.jpg"
+                            src="./slide-2.jpg"
                             alt="Third slide"
                         />
                         <Carousel.Caption>
-                            <h3>Report the incidents in your area!</h3>
+                            <h3 className="slideFontStyle">Report the incidents in your area!</h3>
                             <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="./image3.jpg"
+                            src="./slide-3.jpg"
                             alt="Third slide"
                         />
                         <Carousel.Caption>
-                            <h3> See latest news from your city!</h3>
+                            <h3 className="slideFontStyle"> See latest news from your city!</h3>
                             <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>

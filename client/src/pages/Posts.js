@@ -125,7 +125,7 @@ class Posts extends Component {
         const notLoggedInStyle = {
             display: this.state.notLoggedInStyle,
             color: "blue",
-            marginTop: "80px",
+            marginTop: "50px",
             width: "100%",
             textAlign: "center"
         };
@@ -141,7 +141,7 @@ class Posts extends Component {
             display: this.state.delButtonStyle
         };
         return (
-            <>
+            <div>
                 {/* isLoggedIn false display */}
                 <Container style={notLoggedInStyle}>
                     Please login to add new posts...
@@ -229,7 +229,7 @@ class Posts extends Component {
                         </div>
                     ))}
                 </Container> */}
-            </>
+            </div>
         )
     }
 }

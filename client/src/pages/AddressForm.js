@@ -262,7 +262,8 @@ class AddressForm extends Component {
       width: "100%"
     }
     const addressFormStyle = {
-      display: this.state.addressFormStyle
+      display: this.state.addressFormStyle,
+      marginTop: "70px"
     }
     const mapStyle = {
       display: this.state.mapStyle
