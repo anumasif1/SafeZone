@@ -8,6 +8,7 @@ import './SafeZone.css';
 import News from './News';
 import { Widget, addResponseMessage, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import './ReactChat.css';
+import Posts from './Posts';
 // import logo from './favicon.ico';
 
 const socket = io();
@@ -182,12 +183,15 @@ class SafeZone extends Component {
                 <div className='row col-md-2'>
                         <img src="./news.png" alt="latest news"/>
                     </div>
-                    <div className='row col-md-10 float-right'>
+                    <div className='row col-md-10'>
                     {/* <h1>Headlines</h1>   */}
                     <News />
                     </div>
                     {/* <h1>News Headlines</h1>
                     <News /> */}
+                </div>
+                <div className='card'>
+                    <Posts />
                 </div>
                 <div style={reactChatStyle}>
                     <div className="App reactChat">

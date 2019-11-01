@@ -2,20 +2,25 @@
     margin-top: 100px;
 } */
 
-.card{
+/* .card{
     /* padding: 10px; */
     /* background-color: #28a745!important;
     color: white; */
-    padding-top: 20px;
+    /* padding-top: 20px;
+} */ 
+
+.card{
+    border-radius: 0;
 }
+
 .card-body {
-    padding: 0px;
+    padding: 0 15px 0 15px;
 }
 
 div.card{
     max-width: 800px;
     margin: auto;
-    margin-top: 5px;
+    margin-top: 0px;
     /* margin-top: 155px; */
 }
 
@@ -49,4 +54,16 @@ h1{
 
 ol.carousel-indicators{
     margin: 0px;
+}
+
+element.style {
+    padding: 0 0 0 5px !important;
+}
+
+.h3, h3 {
+    font-size: 12px;
+}
+
+.button{
+    font-size: 12px !important;
 }

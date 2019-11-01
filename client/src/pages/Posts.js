@@ -146,6 +146,33 @@ class Posts extends Component {
                 <Container style={notLoggedInStyle}>
                     Please login to add new posts...
                 </Container>
+
+                                {/* Display all posts from database */}
+                                <Container id="postDisplayCon">
+                    {this.state.postFull.map((item, index) => (
+                        <div key={index} style={{ marginTop: "30px", marginBottom: "50px" }}>
+                            <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
+                            <div style={this.levelColor(item.level)}>Level: {item.level}</div>
+                            <div>
+                                <div style={{ display: "inline", color: "green" }}>{item.user}: </div><div style={{ fontWeight: "bold", display: "inline" }}>{item.title}</div>
+                            </div>
+                            <div>
+                                {item.address}
+                            </div>
+                            <div>
+                                &bull; {item.post}
+                            </div>
+                            <Button className="btn-sm" variant="outline-danger" onClick={(event) => {this.handleOnClickDelPost(event, item._id)}} style={delButtonStyle}>Delete Post</Button>
+                            <div id="makeComment" style={makeCommentStyle}>
+                                <MakeComment notes={item.title} postId={item._id} comment={item.comment} user={this.state.userName}></MakeComment>
+                            </div>
+                            <div id="makeCommentLogin" style={makeCommentLoginStyle} className="border">
+                                Please login to make comments...
+                            </div>
+                        </div>
+                    ))}
+                </Container>
+                
                 {/* Post form to database */}
                 <Container id="postCon" style={addPostStyle}>
                     <Form>
@@ -178,7 +205,7 @@ class Posts extends Component {
                 </Container>
                 <hr></hr>
                 {/* Display all posts from database */}
-                <Container id="postDisplayCon">
+                {/* <Container id="postDisplayCon">
                     {this.state.postFull.map((item, index) => (
                         <div key={index} style={{ marginTop: "30px", marginBottom: "50px" }}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
@@ -201,7 +228,7 @@ class Posts extends Component {
                             </div>
                         </div>
                     ))}
-                </Container>
+                </Container> */}
             </>
         )
     }
