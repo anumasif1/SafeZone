@@ -22,13 +22,13 @@
 
 #newsSec {
     /* margin-top: 100px !important; */
-    width: 300px;
+    /* width: 300px; */
     margin: auto;
 }
 
 .carousel {
     position: relative;
-    width: 800px;
+    width: 90%;
     margin: auto;
     height: 300px;
     margin-top: 25px;
