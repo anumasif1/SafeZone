@@ -258,7 +258,7 @@ class AddressForm extends Component {
     let result = this.alert();
     const spSecondaryStyle = {
       display: this.state.spSecondaryStyle,
-      margin: "auto",
+      // margin: "auto",
       width: "100%"
     }
     const addressFormStyle = {
@@ -266,7 +266,10 @@ class AddressForm extends Component {
       marginTop: "70px"
     }
     const mapStyle = {
-      display: this.state.mapStyle
+      display: this.state.mapStyle,
+      marginTop: "150px",
+      margin: "auto",
+      width: "90%"
     }
     return (
       <div className="container-main">
@@ -299,9 +302,11 @@ class AddressForm extends Component {
           </div>
         </Jumbotron>
 
-        <div id="mapid" className="card" style={mapStyle}></div>
-        <div style={{ width: "100%", textAlign: "center", marginBottom: "30px" }} className="card">
-          <Button size="lg" variant="primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to check another address</Button>
+        <div style={mapStyle}>
+          <div id="mapid" className=""></div>
+          <div style={{ width: "100%", textAlign: "center" }} className="">
+            <Button size="lg" variant="primary" onClick={this.handleOnClickSp} style={spSecondaryStyle}>Click to check another address</Button>
+          </div>
         </div>
       </div>
 
