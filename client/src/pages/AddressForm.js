@@ -218,7 +218,14 @@ class AddressForm extends Component {
       radius: 50
     }).addTo(mymap);
 
-    circle.bindPopup(this.state.mapShowLevel + " " + this.state.mapShowTitle + ": " + this.state.mapShowAddress);
+    console.log(this.state.mapShowTitle)
+
+    if (this.state.mapShowTitle.length < 2) {
+      circle.bindPopup("No data found in this address!");
+    } else {
+      circle.bindPopup(this.state.mapShowLevel + " " + this.state.mapShowTitle + ": " + this.state.mapShowAddress);
+    }
+
   }
 
   alert() {
