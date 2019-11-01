@@ -122,10 +122,10 @@ class AddressForm extends Component {
         for (let i = 0; i < resp.data.length; i++) {
           if (this.state.address.street === resp.data[i].address) {
             this.setState({
-              mapShowAddress: "<Address: " + resp.data[i].address + "<br>",
-              mapShowTitle: "Title: " + resp.data[i].title + "<br>",
-              mapShowLevel: "EM Level: " + resp.data[i].level + "<br>",
-              mapShowDetail: "Detail: " + resp.data[i].post
+              mapShowAddress: "<a style='font-weight: bolder'>Address:</a> " + this.state.address.street + "<br>",
+              mapShowTitle: "<a style='font-weight: bold'>Title:</a> " + resp.data[i].title + "<br>",
+              mapShowLevel: "<a style='font-weight: bold; color: red;'>EM Level: " + resp.data[i].level + "</a><br>" ,
+              mapShowDetail: "<a style='font-weight: bold'>Detail:</a> " + resp.data[i].post
             })
           } else {
             this.setState({
