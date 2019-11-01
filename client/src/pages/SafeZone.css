@@ -8,7 +8,8 @@
     overflow: scroll;
     color: black;
     /* background-color: gray; */
-    height: 300px;
+    height: 400px;
+    margin-bottom: 20px;
     /* width: 500px; */
 }
 
