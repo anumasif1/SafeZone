@@ -67,3 +67,11 @@ element.style {
 .button{
     font-size: 12px !important;
 }
+
+.form-control{
+    font-size: 12px;
+}
+
+.btn{
+    font-size: 12px;
+}
