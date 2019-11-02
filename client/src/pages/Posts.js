@@ -148,7 +148,7 @@ class Posts extends Component {
                 </Container>
 
                  {/* Display all posts from database */}
-                 <Container id="postDisplayCon">
+                 {/* <Container id="postDisplayCon">
                     {this.state.postFull.map((item, index) => (
                         <div id="singlePost" key={index}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
@@ -171,7 +171,7 @@ class Posts extends Component {
                             </div>
                         </div>
                     ))}
-                </Container>
+                </Container> */}
 
                 {/* Post form to database */}
                 <Container id="postCon" style={addPostStyle}>
@@ -205,7 +205,7 @@ class Posts extends Component {
                 </Container>
                 <hr></hr>
                 {/* Display all posts from database */}
-                {/* <Container id="postDisplayCon">
+                <Container id="postDisplayCon">
                     {this.state.postFull.map((item, index) => (
                         <div id="singlePost" key={index}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
@@ -228,7 +228,7 @@ class Posts extends Component {
                             </div>
                         </div>
                     ))}
-                </Container> */}
+                </Container>
             </>
         )
     }
