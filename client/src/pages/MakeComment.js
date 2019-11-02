@@ -15,7 +15,7 @@ function MakeComment(props) {
             .post("/api/savecomment/", data)
             .then(resp => {
                 console.log(resp);
-                window.location.replace("/posts/");
+                window.location.replace("/");
             })
             .catch(err => {
                 console.log(err);
@@ -36,7 +36,7 @@ function MakeComment(props) {
                 Show Comments
             </Button>
             <Collapse in={open}>
-                <div id="example-collapse-text">
+                <div id="example-collapse-text" style={{marginTop: "15px"}}>
                     {props.comment.map((item, index) => (
                         <div key={index}>{item.user}: {item.comment}</div>
                     ))}
