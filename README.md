@@ -9,6 +9,7 @@
 * Interface is extreme friendly. Users can input address they want to check, and the app will show map and popups give details back to users;
 * There are pre-defined ***5 Levels*** people can post based on how dangerous is the situation;
 * All data is saved in database;
+* The app gives certain group of users like "admin" group ability to delete posts;
 * Link to deployed web: https://obscure-journey-79165.herokuapp.com/
 ---
 * Technologies that are used for this app includes: ***Node.JS***, ***Express.JS***, ***Passport.JS***, ***Socket.IO***, ***Moment.JS***, ***Express Session***, ***Cheerio***, ***React.JS***, ***React-BootStrap***, ***MongoDB***, etc. 
@@ -78,4 +79,4 @@
                 console.log(err);
             });
     ```
-* The app give certain group of users like "admin" group ability to delete posts; 
+* The app hides all sensitive API keys through ```process.env```;

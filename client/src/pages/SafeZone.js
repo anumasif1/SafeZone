@@ -28,7 +28,6 @@ class SafeZone extends Component {
     }
 
     componentDidMount() {
-        // document.getElementsByClassName("reactChat").style.display = "none";
         addResponseMessage("Welcome to this awesome chat!");
         this.setState({
             typingStatus: "Stay Alive!"
@@ -42,7 +41,6 @@ class SafeZone extends Component {
                         rcwSenderDisplayStyle: ""
                     });
                 }
-                // document.getElementsByClassName("reactChat").style.display = "";
                 if (resp.data.message === "y") {
                     this.handleSocketIo();
                     this.setState({
@@ -100,7 +98,6 @@ class SafeZone extends Component {
                 timeoutStyle: "inline",
                 valueSocketIo: '"' + data + '"',
             });
-            // document.getElementById("socketNotification").innerHTML = data
             this.fadeoutSocketIoNotification(3);
             console.log('client receive :', data);
         })
@@ -116,10 +113,8 @@ class SafeZone extends Component {
         }
         socket.emit('sendreactchat', this.state.loggedInUser + ": " + newMessage);
         socket.on('recvreactchat', data => {
-            // this.handleNewUserMessage(newMessage, data);
             addResponseMessage(data);
         })
-        // socket.removeListener('recvreactchat');
     }
 
     render() {

@@ -8,30 +8,15 @@ import { Container, Button } from 'react-bootstrap'
 import L from 'leaflet';
 import './Maps.css';
 
-
-
-console.log(process.env)
-
-console.log(process.env.REACT_APP_ADDRESS_CODE)
-
-
-
-// const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
-// const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
-
 class AddressForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = this.getInitialState();
 
-    // User has entered something in the address bar
     this.onQuery = this.onQuery.bind(this);
-    // User has entered something in an address field
     this.onAddressChange = this.onAddressChange.bind(this);
-    // User has clicked the check button
     this.onCheck = this.onCheck.bind(this);
-    // User has clicked the clear button
     this.onClear = this.onClear.bind(this);
   }
 
@@ -280,7 +265,6 @@ class AddressForm extends Component {
     let result = this.alert();
     const spSecondaryStyle = {
       display: this.state.spSecondaryStyle,
-      // margin: "auto",
       width: "100%"
     }
     const addressFormStyle = {
@@ -295,9 +279,6 @@ class AddressForm extends Component {
     }
     return (
       <div className="container-main">
-        {/* <div>
-          <h1>Sign Up, Check the Address and Stay Safe!</h1>
-        </div> */}
         <Jumbotron fluid style={addressFormStyle}>
           <div className="card">
             <AddressSuggest
