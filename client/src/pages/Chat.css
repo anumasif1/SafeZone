@@ -1,6 +1,15 @@
+#chatMain {
+    width: 90%;
+    margin-top: 100px;
+    padding: 50px;
+    /* margin-left: 10%; */
+    /* marginLeft:  */
+}
+
 #conversation {
     margin-top: 60px;
-    color: blue;
+    color: black;
+    font-weight: bold;
     /* margin-bottom: 60px; */
     max-height: 200px;
     overflow: scroll;
@@ -10,10 +19,10 @@
 
 #conversationFull {
     /* margin-top: 60px; */
-    color: blue;
+    color: grey;
     margin-bottom: 100px;
     max-height: 200px;
-    overflow: scroll;
+    /* overflow: scroll; */
     /* background-color: wheat; */
     padding: 20px;
     /* border: 1px solid #ccc; */

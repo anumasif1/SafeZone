@@ -146,8 +146,6 @@ class Chat extends Component {
     render() {
         const chatBoxStyle = {
             display: this.state.chatBoxStyle,
-            width: "500px",
-            marginTop: "100px"
         }
         const conversationFullStyle = {
             display: this.state.conversationFullStyle,
@@ -167,11 +165,11 @@ class Chat extends Component {
         }
 
         return (
-            <>
+            <div id="chatMain">
                 <Container style={chatBoxStyle}>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Chat Input: </Form.Label>
+                            <Form.Label><a style={{fontWeight: "bold", fontSize:"30px"}}>Chat Input:</a> </Form.Label>
                             <div style={loadTypingStyle}>
                                 {this.state.onChangeTest}
                             </div>
@@ -200,7 +198,7 @@ class Chat extends Component {
                         <div key={item.id} className="conversationMap">{item.user}: {item.content}</div>
                     ))}
                 </Container>
-            </>
+            </div>
         )
     }
 }
