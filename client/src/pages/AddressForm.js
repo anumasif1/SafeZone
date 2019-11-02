@@ -118,16 +118,35 @@ class AddressForm extends Component {
       .get("/api/getpost/")
       .then(resp => {
         console.log("RESP: ", resp.data);
+        console.log("this.state.address.street", this.state.address.street)
         // console.log(this.state.address.street)
         for (let i = 0; i < resp.data.length; i++) {
-          if (this.state.address.street === resp.data[i].address) {
+          let sp1 = this.state.address.street;
+          let sp2 = resp.data[i].address;
+
+          for (let i = 0; i < sp1.length - 1; i++) {
+            if (sp1[i] === "" ) {
+              sp1[i] = sp1[i++];
+            }
+          }
+
+          for (let i = 0; i < sp2.length; i++) {
+            if (sp2[i] === "" ) {
+              sp2[i] = sp2[i++];
+            }
+          }
+
+
+          if (sp1 === sp2) {
             this.setState({
               mapShowAddress: "<a style='font-weight: bolder'>Address:</a> " + this.state.address.street + "<br>",
               mapShowTitle: "<a style='font-weight: bold'>Title:</a> " + resp.data[i].title + "<br>",
               mapShowLevel: "<a style='font-weight: bold; color: red;'>EM Level: " + resp.data[i].level + "</a><br>",
               mapShowDetail: "<a style='font-weight: bold'>Detail:</a> " + resp.data[i].post
-            })
+            });
+            break;
           } else {
+            console.log("##########")
             this.setState({
               mapShowAddress: "Address: " + this.state.address.street + "<br>",
               mapShowTitle: "Alert: ",
