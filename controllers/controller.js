@@ -84,7 +84,7 @@ module.exports.getNews = (req, res) => {
 module.exports.getChat = (req, res) => {
     db.Chat
         .find({})
-        .sort([['createdAt', 1]])
+        .sort([['createdAt', -1]])
         .then(dbChat => {
             res.json(dbChat);
         })
