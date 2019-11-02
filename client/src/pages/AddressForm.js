@@ -10,7 +10,9 @@ import './Maps.css';
 
 
 
-// console.log(process.env)
+console.log(process.env)
+
+console.log(process.env.REACT_APP_ADDRESS_CODE)
 
 
 
@@ -123,9 +125,6 @@ class AddressForm extends Component {
     axios
       .get("/api/getpost/")
       .then(resp => {
-        console.log("RESP: ", resp.data);
-        console.log("this.state.address.street", this.state.address.street)
-        // console.log(this.state.address.street)
         for (let i = 0; i < resp.data.length; i++) {
           let sp1 = this.state.address.street;
           let sp2 = resp.data[i].address;
