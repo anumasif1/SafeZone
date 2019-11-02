@@ -6,10 +6,16 @@ import './AddressForm.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import { Container, Button } from 'react-bootstrap'
 import L from 'leaflet';
-import './Maps.css'
+import './Maps.css';
 
-const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
-const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
+
+
+// console.log(process.env)
+
+
+
+// const APP_ID_HERE = 'BsV54tyJtu3XyQzqHSbS';
+// const APP_CODE_HERE = 'LiwrHP8o9CfzfePJDFRWlA';
 
 class AddressForm extends Component {
   constructor(props) {
@@ -146,7 +152,6 @@ class AddressForm extends Component {
             });
             break;
           } else {
-            console.log("##########")
             this.setState({
               mapShowAddress: "Address: " + this.state.address.street + "<br>",
               mapShowTitle: "Alert: ",
@@ -214,7 +219,6 @@ class AddressForm extends Component {
 
         })
           .catch(function (error) {
-            console.log('caught failed query');
             self.setState({
               isChecked: true,
               coords: null
@@ -235,8 +239,10 @@ class AddressForm extends Component {
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 20,
-      id: 'mapbox.streets',
-      accessToken: 'pk.eyJ1IjoiYWFydml6dTI5IiwiYSI6ImNrMXZtbWdhbjBpdG4zYnA1NGZ2eXpmZ2oifQ.nD8_Rft10MhlpJqZjnNYDw'
+      // id: 'mapbox.streets',
+      // accessToken: 'pk.eyJ1IjoiYWFydml6dTI5IiwiYSI6ImNrMXZtbWdhbjBpdG4zYnA1NGZ2eXpmZ2oifQ.nD8_Rft10MhlpJqZjnNYDw'
+      id: process.env.REACT_APP_LEAFMAP_ID,
+      accessToken: process.env.REACT_APP_LEAFMAP_TOKEN
     }).addTo(mymap);
 
     let circle = L.circle([this.state.coords.lat, this.state.coords.lon], {
