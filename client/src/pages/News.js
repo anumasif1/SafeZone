@@ -34,7 +34,7 @@ class News extends Component {
                     {this.state.news.map((item, index) => (
                         <div key={item.id}>
                             <div className="newSecMapTitle">
-                                {index + 1}. <a className="newSecMapLink" href={item.link}>{item.title}</a>
+                                {index + 1}. <a className="newSecMapLink" target="_blank" href={item.link}>{item.title}</a>
                             </div>
                             {/* <div>
                                 <a className="newSecMapLink" href={item.link}>{item.link}</a>

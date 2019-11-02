@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class AddressItem extends Component {
   render() {
     return (
-        <div className="row  add-form form-group justify-content-start">
+        <div className="row  add-form form-group justify-content-start address-main-div">
             <label className="col-sm-2 col-form-label">{this.props.label}</label>
             <div className="col-sm-10">
                 <input
