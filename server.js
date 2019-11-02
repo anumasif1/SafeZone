@@ -10,7 +10,6 @@ const passport = require("passport");
 const session = require("express-session");
 const flash = require("connect-flash");
 const db = require("./models");
-// const routes = require('./routes/routes')(app, passport);
 
 app.use(logger("dev"));
 
@@ -26,8 +25,6 @@ app.use(passport.session());
 require("./config/passport/passport")(passport, db.User);
 
 require("./routes/routes")(app, passport);
-
-// app.use(routes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

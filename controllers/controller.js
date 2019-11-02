@@ -97,7 +97,7 @@ module.exports.getPost = (req, res) => {
     db.Post
         .find({})
         .populate("comment")
-        .sort([['createdAt', 1]])
+        .sort([['createdAt', -1]])
         .then(dbPost => {
             res.json(dbPost);
         })
