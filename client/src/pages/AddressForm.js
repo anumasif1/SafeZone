@@ -64,8 +64,8 @@ class AddressForm extends Component {
     axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
       {
         'params': {
-          'app_id': 'BsV54tyJtu3XyQzqHSbS',
-          'app_code': 'LiwrHP8o9CfzfePJDFRWlA',
+          'app_id': process.env.REACT_APP_ADDRESS_ID,
+          'app_code': process.env.REACT_APP_ADDRESS_CODE,
           'query': query,
           'maxresults': 1,
         }
@@ -171,8 +171,6 @@ class AddressForm extends Component {
           mapStyle: ""
         })
         let params = {
-          // 'app_id': 'BsV54tyJtu3XyQzqHSbS',
-          // 'app_code': 'LiwrHP8o9CfzfePJDFRWlA'
           'app_id': process.env.REACT_APP_ADDRESS_ID,
           'app_code': process.env.REACT_APP_ADDRESS_CODE
         }
@@ -240,10 +238,8 @@ class AddressForm extends Component {
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 20,
-      id: 'mapbox.streets',
-      accessToken: 'pk.eyJ1IjoiYWFydml6dTI5IiwiYSI6ImNrMXZtbWdhbjBpdG4zYnA1NGZ2eXpmZ2oifQ.nD8_Rft10MhlpJqZjnNYDw'
-      // id: process.env.REACT_APP_LEAFMAP_ID,
-      // accessToken: process.env.REACT_APP_LEAFMAP_TOKEN
+      id: process.env.REACT_APP_LEAFMAP_ID,
+      accessToken: process.env.REACT_APP_LEAFMAP_TOKEN
     }).addTo(mymap);
 
     let circle = L.circle([this.state.coords.lat, this.state.coords.lon], {
