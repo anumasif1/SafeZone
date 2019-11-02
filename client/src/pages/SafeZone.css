@@ -5,7 +5,7 @@
 }
 
 .news-tab {
-    overflow: scroll;
+    overflow-y: scroll;
     color: black;
     /* background-color: gray; */
     height: 400px;

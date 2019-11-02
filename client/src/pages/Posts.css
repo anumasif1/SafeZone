@@ -1,11 +1,19 @@
 #postCon {
-    margin-top: 100px !important;
+    /* margin-top: 100px !important; */
     width: 90% !important;
     margin: auto;
 }
 
 #postDisplayCon {
-    margin-top: 20px !important;
-    width: 80%;
+    /* margin-top: 20px !important; */
+    width: 90%;
     margin: auto;
+}
+
+#singlePost{
+    margin-top: 10px;
+}
+
+form{
+    margin-top: 15px;
 }

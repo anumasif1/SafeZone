@@ -141,16 +141,16 @@ class Posts extends Component {
             display: this.state.delButtonStyle
         };
         return (
-            <div>
+            <>
                 {/* isLoggedIn false display */}
                 <Container style={notLoggedInStyle}>
                     Please login to add new posts...
                 </Container>
 
-                                {/* Display all posts from database */}
-                                <Container id="postDisplayCon">
+                 {/* Display all posts from database */}
+                 <Container id="postDisplayCon">
                     {this.state.postFull.map((item, index) => (
-                        <div key={index} style={{ marginTop: "30px", marginBottom: "50px" }}>
+                        <div id="singlePost" key={index}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
                             <div style={this.levelColor(item.level)}>Level: {item.level}</div>
                             <div>
@@ -172,7 +172,7 @@ class Posts extends Component {
                         </div>
                     ))}
                 </Container>
-                
+
                 {/* Post form to database */}
                 <Container id="postCon" style={addPostStyle}>
                     <Form>
@@ -207,7 +207,7 @@ class Posts extends Component {
                 {/* Display all posts from database */}
                 {/* <Container id="postDisplayCon">
                     {this.state.postFull.map((item, index) => (
-                        <div key={index} style={{ marginTop: "30px", marginBottom: "50px" }}>
+                        <div id="singlePost" key={index}>
                             <div style={{ fontStyle: "italic", color: "grey" }}>{this.dateFormat(item.createdAt)}</div>
                             <div style={this.levelColor(item.level)}>Level: {item.level}</div>
                             <div>
@@ -229,7 +229,7 @@ class Posts extends Component {
                         </div>
                     ))}
                 </Container> */}
-            </div>
+            </>
         )
     }
 }
