@@ -15,7 +15,7 @@ class AddressInput extends Component {
   render() {
     return (
 
-      <div className="card-body" style={{ padding: "15px" }}>
+      <div className="card-body" style={{ padding: "0 15px 0 15px" }}>
       <AddressItem label="Street" id="street" value={this.props.street} onChange={this.handleChange} placeholder="" />
       <AddressItem label="City" id="city" value={this.props.city} onChange={this.handleChange} placeholder="" />
       <AddressItem label="State" id="state" value={this.props.state} onChange={this.handleChange} placeholder="" />
