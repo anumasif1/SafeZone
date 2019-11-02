@@ -185,7 +185,7 @@ class SafeZone extends Component {
                     {/* <h1>News Headlines</h1>
                     <News /> */}
                 </div>
-                <div className='card'>
+                <div className='card' id="postCard">
                     <Posts />
                 </div>
                 <div style={reactChatStyle}>
